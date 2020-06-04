@@ -25,4 +25,4 @@ yarn-error.log*
 *.sw?
 
 # database config
-.base.conf.js
+data.base.conf.js
