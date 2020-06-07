@@ -1,10 +1,10 @@
 <template>
   <el-container
-    style="background-color: #e6f0ef; height: 500px; border: 1px solid #eee"
+    style="background-color: #e6f0ef; height: expression(document.body.clientHeight-130px); border: 1px solid #eee"
   >
     <!-- 侧面导航栏 -->
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu :default-openeds="['1', '3']">
+      <el-menu :default-openeds="['1', '2', '3']">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-data-analysis"></i>Cluster
@@ -146,7 +146,6 @@
             dinucleotide-DNA, dinucleotide-RNA, trinucleotide-DNA). And we will
             do a count in the form of a bar chart.
           </p>
-          <!-- 需修改表格风格 -->
           <el-table
             :data="ktuple"
             border

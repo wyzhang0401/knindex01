@@ -1,7 +1,11 @@
 <template>
   <el-container class="app-main">
-    <el-header>
-      Download
+    <el-header style="color: #606060;">
+      <i
+        style="font-size: 30px; margin-right: 20px"
+        class="el-icon-download"
+      ></i>
+      Download Files
       <hr />
     </el-header>
     <el-main class="download">
@@ -102,7 +106,7 @@ export default {
 
 <style scoped>
 .el-header {
-  font-size: 40px;
+  font-size: 1.5em;
 }
 .el-row {
   margin-bottom: 20px;

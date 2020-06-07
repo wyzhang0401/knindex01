@@ -2,7 +2,12 @@
   <nav>
     <ul class="topnav" id="dropdownClick">
       <li class="title">
-        <h2>{{ title }}</h2>
+        <!-- <h2>{{ title }}</h2> -->
+        <img
+          alt="KNIndex database"
+          src="../assets/title.png"
+          style="height: 50px; width: auto; vertical-align: middle; margin-right: 30px;"
+        />
       </li>
       <li
         :index="item.id"
@@ -114,10 +119,11 @@ nav {
   display: block;
   width: 100%;
   margin: 0;
+  height: 70px;
+  background-color: rgb(250, 250, 250);
 }
 
 ul.topnav {
-  background-color: rgb(250, 250, 250);
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -126,18 +132,31 @@ ul.topnav {
 ul.topnav li {
   float: left;
   color: rgb(115, 200, 200);
+  /* height: 100%; */
 }
 
 ul.topnav li.title {
-  padding: 0 100px 0 40px;
+  padding: 0 70px;
+  line-height: 70px;
+  height: 70px;
 }
+/* 为什么list的高度是40+height的设定值呢？ */
+/* ul.topnav li.list {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 1.1em;
+} */
 
 ul.topnav li a {
   display: block;
-  min-height: 20px;
   padding: 20px;
   color: rgb(115, 200, 200);
   font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 1.1em;
 }
 
 ul.topnav li a:hover {
@@ -149,7 +168,8 @@ ul.topnav li.dropdownIcon {
 }
 
 ul.topnav .is-active a {
-  background: lightgray;
+  background: rgb(115, 200, 200);
+  color: white;
 }
 
 @media screen and (max-width: 700px) {
@@ -164,17 +184,26 @@ ul.topnav .is-active a {
 
   ul.topnav.responsive {
     position: relative;
+    background-color: rgb(250, 250, 250);
+    z-index: 999;
   }
 
   ul.topnav.responsive li {
     float: none;
     display: block;
-    text-align: left;
   }
-  ul.topnav.responsive li:nth-child(2) {
+
+  /* 下拉图标大小不变 */
+  ul.topnav.responsive li:not(:nth-child(9)) a {
+    text-align: left;
+    height: 0 !important;
+    line-height: 0 !important;
+    font-size: 1em !important;
+  }
+  /* ul.topnav.responsive li:nth-child(2) {
     border-top: 1px solid;
     border-top-color: gray;
-  }
+  } */
   ul.topnav.responsive li.dropdownIcon {
     position: absolute;
     top: 0;

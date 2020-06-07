@@ -6,6 +6,7 @@ import Download from "../views/Download.vue";
 import Search from "../views/Search.vue";
 import Browse from "../views/Browse.vue";
 import Convert from "../views/Convert.vue";
+import Visualization from "../views/Visualization.vue";
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,11 @@ const routes = [
     path: "/manual.pdf",
     name: "Manual",
     component: () => import("../views/Manual.vue")
+  },
+  {
+    path: "/visualization",
+    name: "Visualization",
+    component: Visualization
   }
 ];
 

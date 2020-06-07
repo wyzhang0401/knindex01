@@ -1,5 +1,12 @@
 <template>
-  <el-container class="app-main">
+  <div>
+    <el-row class="title" style="color: #606060;">
+      <img
+        style="margin-right: 20px; height: 55px; width: 55px; vertical-align: middle;"
+        src="../assets/datavis.png"
+      />
+      Convert and Visualization
+    </el-row>
     <div class="myForm">
       <!-- Form 表单 -->
       <el-form
@@ -35,7 +42,8 @@
         <el-form-item label="maximum number of selectable properties">
           <!-- <span>Please set the maximum number of selectable properties:</span> -->
           <i class="el-icon-question" @click="question"></i>
-          <el-select v-model="form.max" placeholder="5" size="mini">
+          <!-- v-model 为默认选中 -->
+          <el-select v-model="form.max" size="mini">
             <el-option label="5" value="5"></el-option>
             <el-option label="10" value="10"></el-option>
             <el-option label="15" value="15"></el-option>
@@ -189,7 +197,7 @@
                     <input
                       type="button"
                       value="example"
-                      style="width: 80px"
+                      style="width: 90px"
                       @click="getExample"
                     />
                   </td>
@@ -197,8 +205,16 @@
                     <input
                       type="button"
                       value="getValue"
-                      style="width: 80px"
+                      style="width: 90px"
                       @click="getValue('form')"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="button"
+                      value="Visualization"
+                      style="width: 90px"
+                      @click="toVisual"
                     />
                   </td>
                 </tr>
@@ -229,7 +245,9 @@
         </el-form-item>
       </el-form>
     </div>
-  </el-container>
+    <!-- <router-link to="/visualization">visualization</router-link> -->
+    <!-- <router-view></router-view> -->
+  </div>
 </template>
 
 <script>
@@ -277,7 +295,10 @@ export default {
       },
       disable: false,
       // max: 5, // 复选框最多选择的个数
-      status: false
+      status: false,
+      kmersVisual: [], // 传递给可视化页面
+      // propertyVisual: [],
+      valuesVisual: {} // {"理化特性":[值的数组],"":[], ...}
     };
   },
 
@@ -421,6 +442,7 @@ export default {
             kmers.push(mer);
           }
           // console.log(kmers);
+          _this.kmersVisual = kmers;
           outputK = "kmers:\n" + kmers.join(" "); // 数组转换为以空格分隔的字符串
           _this.form.outputkmers = outputK;
           // 输入序列拆分结束---------------------------------------------------
@@ -430,6 +452,7 @@ export default {
           let n = 0;
           // let value = []; // kmers对应的理化性质propertyid的值 [[],[],[],...]
           let output = "";
+          let visual = {};
           // console.log(tmpProperty);
           for (n = 0; n < tmpProperty.length; n++) {
             // eslint-disable-next-line no-unused-vars
@@ -441,6 +464,9 @@ export default {
               tmpValue.push(tmpProperty[n][kmers[p]]);
             }
             // value.push(tmpValue);
+
+            visual[tmpProperty[n].PropertyName] = tmpValue;
+
             output =
               output +
               _this.form.value +
@@ -451,11 +477,45 @@ export default {
               "\n";
           }
           _this.form.outputValue = output;
+          _this.valuesVisual = visual;
         } else {
           alert("Please choose parameters first!");
           return false;
         }
       });
+    },
+    toVisual() {
+      // let _this = this;
+      // 这种不支持在新窗口打开
+      // console.log(_this.form.outputkmers);
+      // 路径要用name才能将params传递过去，path传query，而且query会显示在地址栏的url中
+      // this.$router.push({
+      //   name: "Visualization",
+      //   params: {
+      //     kmers: _this.form.outputkmers,
+      //     values: _this.form.outputValue
+      //   }
+      // });
+
+      // 这种可以实现在新窗口打开可视化界面, 下面这种传参方式是错误的
+      // let routeUrl = this.$router.resolve({
+      //   name: "Visualization",
+      //   params: {
+      //     kmers: _this.form.outputkmers,
+      //     values: _this.form.outputValue
+      //   }
+      // });
+      // window.open(routeUrl.href, "_blank");
+      let routeUrl = this.$router.resolve({
+        name: "Visualization"
+      });
+      // 传kmers
+      localStorage.setItem("kmers", this.kmersVisual);
+      // console.log(this.kmersVisual);
+      // console.log(JSON.stringify(this.valuesVisual));
+      // 以JSON串的形式传递参数
+      localStorage.setItem("values", JSON.stringify(this.valuesVisual));
+      window.open(routeUrl.href, "_blank");
     }
   }
 };
@@ -530,9 +590,35 @@ var object2object = function(objectArray, length, rows) {
   background: lightgray;
   color: #606266;
 }
+
 /* .el-select {
   width: 60%;
 } */
+
+.title {
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 80px;
+  height: 80px;
+  background: #e6f0ef; /* Old browsers */
+  background: -moz-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    135deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f0ef', endColorstr='#b4ede7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
 .el-form-item {
   border-top: 1px solid rgb(115, 200, 200);
   margin-bottom: 0;

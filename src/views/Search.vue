@@ -1,7 +1,16 @@
 <template>
-  <el-container class="app-main">
-    <el-header>
+  <div class="result">
+    <div class="header">
       <!--element-ui的复合型输入框 可通过 slot 来指定在 input 中前置或者后置内容。 -->
+      <el-row style="color: #606060; line-height:60px;">
+        <i
+          style="font-size: 30px; margin-right: 20px"
+          class="el-icon-search"
+        ></i>
+        <span style="font-size: 1.5em;">
+          Search from Database
+        </span>
+      </el-row>
       <el-input
         placeholder="physicochemical property name(use * or % to do a fuzzy search)"
         v-model="inputContent"
@@ -36,9 +45,36 @@
           @click="Search"
         ></el-button>
       </el-input>
-    </el-header>
+    </div>
 
-    <el-main class="content">
+    <div class="content">
+      <el-row
+        v-if="id == 0"
+        type="flex"
+        justify="space-between"
+        style="padding: 10px;"
+      >
+        <el-col :span="12">
+          <img
+            alt="KNIndex nucleotides"
+            src="../assets/nucleotides.png"
+            style="height: 300px; width: auto;"
+          />
+        </el-col>
+        <el-col :span="12" class="explain">
+          <p>
+            You can obtain the desired values by searching the physicochemical
+            property name. If you forget how to spell it, a fuzzy search can be
+            performed by "*" or "%". For example, you want the "Persistance
+            Length", which can be obtained by searching "per*th".
+          </p>
+          <img
+            alt="search example"
+            style="height: 150px; width: auto;"
+            src="../assets/example.png"
+          />
+        </el-col>
+      </el-row>
       <!-- 折叠面板 -->
       <el-collapse v-model="activeNames">
         <el-collapse-item
@@ -67,7 +103,7 @@
           <el-table
             id="myTable1"
             :data="monodnaoriginal"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -140,7 +176,7 @@
           <el-table
             id="myTable2"
             :data="monodnastandard"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -213,7 +249,7 @@
             id="myTable3"
             :data="didnaoriginal"
             height="400"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -290,7 +326,7 @@
             id="myTable4"
             :data="didnastandard"
             height="400"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -365,7 +401,7 @@
             id="myTable5"
             :data="dirnaoriginal"
             height="400"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -441,7 +477,7 @@
             id="myTable6"
             :data="dirnastandard"
             height="400"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -517,7 +553,7 @@
             id="myTable7"
             :data="tridnaoriginal"
             height="400"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -593,7 +629,7 @@
             id="myTable8"
             :data="tridnastandard"
             height="400"
-            stripe
+            :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -642,8 +678,8 @@
           </el-table>
         </el-collapse-item>
       </el-collapse>
-    </el-main>
-  </el-container>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -834,12 +870,13 @@ export default {
   methods: {
     // 表格显示具有斑马线
     // eslint-disable-next-line no-unused-vars
-    // tabRowClassName({ row, rowIndex }) {
-    //   var index = rowIndex + 1;
-    //   if (index % 2 == 0) {
-    //     return "warning-row";
-    //   }
-    // },
+    tabRowClassName({ row, rowIndex }) {
+      var index = rowIndex + 1;
+      if (index % 2 == 0) {
+        return "warning-row";
+      }
+      console.log(rowIndex);
+    },
 
     // 导出表格
     export2excel() {
@@ -1153,9 +1190,27 @@ var sqlencode = function(str) {
 };
 </script>
 
-<style scoped>
-.el-header {
+<style>
+/* 没有用scoped 如果使用斑马线设置无效 */
+.header {
   width: 100%;
+  padding-bottom: 60px;
+  background: #e6f0ef; /* Old browsers */
+  background: -moz-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    135deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .input-with-select {
   width: 60%;
@@ -1163,8 +1218,11 @@ var sqlencode = function(str) {
 .el-select {
   width: 120px;
 }
+.content {
+  padding: 10px;
+}
 .el-table .warning-row {
-  background: #d8d8d8;
+  background: #99cccc;
 }
 .tabletitle {
   text-align: center;
@@ -1173,5 +1231,13 @@ var sqlencode = function(str) {
   line-height: 30px;
   color: #686868;
   font-weight: bold;
+}
+.explain {
+  border: solid 1px #99cccc;
+  padding: 10px;
+}
+.explain p {
+  text-indent: 2em;
+  text-align: justify;
 }
 </style>
