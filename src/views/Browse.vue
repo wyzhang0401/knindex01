@@ -1,4 +1,5 @@
 <template>
+  <!-- 加入了height之后，里面的el-container标签没有滑动栏了 -->
   <el-container
     style="background-color: #e6f0ef; height: expression(document.body.clientHeight-130px); border: 1px solid #eee"
   >
@@ -759,7 +760,7 @@
         </div> -->
 
         <!-- 返回顶部按钮 -->
-        <el-backtop target=".browseBody">
+        <!-- <el-backtop target=".browseBody">
           <div
             style="{
                         height: 100%;
@@ -773,7 +774,7 @@
           >
             TOP
           </div>
-        </el-backtop>
+        </el-backtop> -->
       </el-main>
     </el-container>
   </el-container>

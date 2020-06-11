@@ -57,7 +57,7 @@
         <el-col :span="12">
           <img
             alt="KNIndex nucleotides"
-            src="../assets/nucleotides.png"
+            src="../assets/search/nucleotides.png"
             style="height: 300px; width: auto;"
           />
         </el-col>
@@ -71,7 +71,7 @@
           <img
             alt="search example"
             style="height: 150px; width: auto;"
-            src="../assets/example.png"
+            src="../assets/search/example.png"
           />
         </el-col>
       </el-row>

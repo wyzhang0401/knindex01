@@ -12,7 +12,7 @@
 export default {
   data() {
     return {
-      src: "KNIndex_manual.pdf" //pdf地址,这里我用的是我本地的文件,你也可以使用后台的文件
+      src: "KNIndex_manual.pdf" //pdf地址,这里我用的是我本地的文件,也可以使用后台的文件
     };
   }
 };

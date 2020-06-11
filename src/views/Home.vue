@@ -55,11 +55,9 @@
         <p>
           You can get the manual of the web server from
           <router-link to="/manual.pdf">Manual</router-link>
+          page and learn how to use the web server from
+          <router-link to="/help">Help</router-link>
           page.
-        </p>
-        <p>
-          <router-link to="/about">About</router-link>
-          page ?
         </p>
       </el-col>
       <el-col :span="12">

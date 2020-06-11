@@ -1,30 +1,33 @@
 <template>
-  <nav>
-    <ul class="topnav" id="dropdownClick">
-      <li class="title">
-        <!-- <h2>{{ title }}</h2> -->
-        <img
-          alt="KNIndex database"
-          src="../assets/title.png"
-          style="height: 50px; width: auto; vertical-align: middle; margin-right: 30px;"
-        />
-      </li>
-      <li
-        :index="item.id"
-        v-for="item in menus"
-        v-on:click="setname(item.name)"
-        :class="{ 'is-active': item.name == checkName }"
-        :key="item.id"
-      >
-        <router-link :to="item.url">
-          {{ item.name }}
-        </router-link>
-      </li>
-      <li class="dropdownIcon">
-        <a href="javascript:void(0);" @click="dropdownMenu()">&#9776;</a>
-      </li>
-    </ul>
-  </nav>
+  <div>
+    <nav>
+      <ul class="topnav" id="dropdownClick">
+        <li class="title">
+          <!-- <h2>{{ title }}</h2> -->
+          <img
+            alt="KNIndex database"
+            src="../assets/title.png"
+            style="height: 50px; width: auto; vertical-align: middle; margin-right: 30px;"
+          />
+        </li>
+        <li
+          :index="item.id"
+          v-for="item in menus"
+          v-on:click="setname(item.name)"
+          :class="{ 'is-active': item.name == checkName }"
+          :key="item.id"
+        >
+          <router-link :to="item.url">
+            {{ item.name }}
+          </router-link>
+        </li>
+        <li class="dropdownIcon">
+          <a href="javascript:void(0);" @click="dropdownMenu()">&#9776;</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- <div class="decorate"></div> -->
+  </div>
 </template>
 
 <script>
@@ -66,8 +69,8 @@ export default {
         },
         {
           id: 7,
-          url: "/about",
-          name: "About"
+          url: "/help",
+          name: "Help"
         }
       ],
       checkName: this.$route.name
@@ -122,6 +125,11 @@ nav {
   height: 70px;
   background-color: rgb(250, 250, 250);
 }
+
+/* .decorate {
+  height: 10px;
+  background-color: rgb(115, 200, 200);
+} */
 
 ul.topnav {
   margin: 0;
