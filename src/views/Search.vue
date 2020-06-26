@@ -2,14 +2,15 @@
   <div class="result">
     <div class="header">
       <!--element-ui的复合型输入框 可通过 slot 来指定在 input 中前置或者后置内容。 -->
-      <el-row style="color: #606060; line-height:60px;">
-        <i
-          style="font-size: 30px; margin-right: 20px"
-          class="el-icon-search"
-        ></i>
-        <span style="font-size: 1.5em;">
-          Search from Database
-        </span>
+      <el-row
+        class="title"
+        style="color: #606060; text-align: center; font-size: 1.5em; line-height: 80px; height: 80px;"
+      >
+        <img
+          src="../assets/search.png"
+          style="height: 45px; width: auto;  vertical-align: middle; margin-right: 20px;"
+        />
+        Search from Database
       </el-row>
       <el-input
         placeholder="physicochemical property name(use * or % to do a fuzzy search)"
@@ -70,8 +71,8 @@
           </p>
           <img
             alt="search example"
-            style="height: 150px; width: auto;"
-            src="../assets/search/example.png"
+            style="height: 270px; width: 480px;"
+            src="../assets/search/example.jpg"
           />
         </el-col>
       </el-row>
@@ -112,7 +113,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -185,7 +186,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -258,7 +259,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -335,7 +336,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -410,7 +411,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -486,7 +487,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -562,7 +563,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -638,7 +639,7 @@
             <el-table-column
               prop="PropertyName"
               label="PropertyName"
-              width="120"
+              width="125"
             ></el-table-column>
             <el-table-column prop="ReferID" label="ReferID" width="100">
               <template slot-scope="scope">
@@ -875,7 +876,7 @@ export default {
       if (index % 2 == 0) {
         return "warning-row";
       }
-      console.log(rowIndex);
+      // console.log(rowIndex);
     },
 
     // 导出表格
@@ -1214,6 +1215,10 @@ var sqlencode = function(str) {
 }
 .input-with-select {
   width: 60%;
+  font-size: 15px;
+}
+.el-collapse-item__header {
+  font-size: 16px;
 }
 .el-select {
   width: 120px;
@@ -1221,8 +1226,14 @@ var sqlencode = function(str) {
 .content {
   padding: 10px;
 }
+
+.el-table {
+  font-size: 15px;
+  color: #232324;
+}
+
 .el-table .warning-row {
-  background: #99cccc;
+  background: #ccf1f1;
 }
 .tabletitle {
   text-align: center;

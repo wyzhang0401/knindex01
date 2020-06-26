@@ -53,15 +53,18 @@
           sequence into a sequence corresponding to a physicochemical property.
         </p>
         <p>
-          You can get the manual of the web server from
-          <router-link to="/manual.pdf">Manual</router-link>
-          page and learn how to use the web server from
+          You can learn how to use the web server from
           <router-link to="/help">Help</router-link>
           page.
         </p>
       </el-col>
       <el-col :span="12">
-        <div id="myHeatmap" style="width: 600px;height:600px;"></div>
+        <!-- <div id="myHeatmap" style="width: 600px;height:600px;"></div> -->
+        <img
+          alt="nucleotides"
+          src="../assets/nucleotide.jpg"
+          style="width: 600px;height:600px;"
+        />
       </el-col>
     </el-row>
   </div>

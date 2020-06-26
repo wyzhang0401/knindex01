@@ -1,189 +1,199 @@
 <template>
-  <!-- 加入了height之后，里面的el-container标签没有滑动栏了 -->
-  <el-container
-    style="background-color: #e6f0ef; height: expression(document.body.clientHeight-130px); border: 1px solid #eee"
-  >
-    <!-- 侧面导航栏 -->
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu :default-openeds="['1', '2', '3']">
-        <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-data-analysis"></i>Cluster
-          </template>
+  <div>
+    <el-row class="title" style="color: #606060;">
+      <img
+        style="margin-right: 20px; height: 55px; width: 55px; vertical-align: middle;"
+        src="../assets/browse.png"
+      />
+      Browse all
+    </el-row>
+    <!-- 加入了height之后，里面的el-container标签没有滑动栏了 -->
+    <el-container
+      style="height: expression(document.body.clientHeight-130px); border: 1px solid #eee"
+    >
+      <!-- 侧面导航栏 -->
+      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+        <el-menu :default-openeds="['1', '2', '3']">
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-data-analysis"></i>Cluster
+            </template>
 
-          <el-menu-item index="1-1">
-            <a href="#cluster1">references</a>
-          </el-menu-item>
-          <el-menu-item index="1-2">
-            <a href="#cluster2">k-tuple</a>
-          </el-menu-item>
-        </el-submenu>
+            <el-menu-item index="1-1">
+              <a href="#cluster1">references</a>
+            </el-menu-item>
+            <el-menu-item index="1-2">
+              <a href="#cluster2">k-tuple</a>
+            </el-menu-item>
+          </el-submenu>
 
-        <el-submenu index="2">
-          <template slot="title"><i class="el-icon-s-grid"></i>Browse</template>
-          <el-menu-item-group title="Original values">
-            <el-menu-item index="2-1">
-              <a href="#browse1">mononucleotide</a>
-            </el-menu-item>
-            <el-submenu index="2-2">
-              <template slot="title">dinucleotide</template>
-              <el-menu-item index="2-2-1">
-                <a href="#browse2-1">DNA</a>
+          <el-submenu index="2">
+            <template slot="title"
+              ><i class="el-icon-s-grid"></i>Browse</template
+            >
+            <el-menu-item-group title="Original values">
+              <el-menu-item index="2-1">
+                <a href="#browse1">mononucleotide</a>
               </el-menu-item>
-              <el-menu-item index="2-2-2">
-                <a href="#browse2-2">RNA</a>
+              <el-submenu index="2-2">
+                <template slot="title">dinucleotide</template>
+                <el-menu-item index="2-2-1">
+                  <a href="#browse2-1">DNA</a>
+                </el-menu-item>
+                <el-menu-item index="2-2-2">
+                  <a href="#browse2-2">RNA</a>
+                </el-menu-item>
+              </el-submenu>
+              <el-menu-item index="2-3">
+                <a href="#browse3">trinucleotide</a>
               </el-menu-item>
-            </el-submenu>
-            <el-menu-item index="2-3">
-              <a href="#browse3">trinucleotide</a>
-            </el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Standard values">
-            <el-menu-item index="2-4">
-              <a href="#browse4">mononucleotide</a>
-            </el-menu-item>
-            <el-submenu index="2-5">
-              <template slot="title">dinucleotide</template>
-              <el-menu-item index="2-5-1">
-                <a href="#browse5-1">DNA</a>
+            </el-menu-item-group>
+            <el-menu-item-group title="Standard values">
+              <el-menu-item index="2-4">
+                <a href="#browse4">mononucleotide</a>
               </el-menu-item>
-              <el-menu-item index="2-5-2">
-                <a href="#browse5-2">RNA</a>
+              <el-submenu index="2-5">
+                <template slot="title">dinucleotide</template>
+                <el-menu-item index="2-5-1">
+                  <a href="#browse5-1">DNA</a>
+                </el-menu-item>
+                <el-menu-item index="2-5-2">
+                  <a href="#browse5-2">RNA</a>
+                </el-menu-item>
+              </el-submenu>
+              <el-menu-item index="2-6">
+                <a href="#browse6">trinucleotide</a>
               </el-menu-item>
-            </el-submenu>
-            <el-menu-item index="2-6">
-              <a href="#browse6">trinucleotide</a>
-            </el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
+            </el-menu-item-group>
+          </el-submenu>
 
-        <el-submenu index="3">
-          <template slot="title">
-            <i class="el-icon-document"></i>References
-          </template>
-          <el-menu-item index="3-1">
-            <a href="#reference">references</a>
-          </el-menu-item>
-        </el-submenu>
-      </el-menu>
-    </el-aside>
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-document"></i>References
+            </template>
+            <el-menu-item index="3-1">
+              <a href="#reference">references</a>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
 
-    <el-container>
-      <el-main class="browseBody">
-        <!-- 按参考文献将理化性质分类 -->
-        <div class="cluster-reference">
-          <h3><a name="cluster1"></a>Clustering according to references</h3>
-          <p>
-            In this part, the physicochemical properties were clustered
-            according to the references.
-          </p>
-          <!-- height 固定表头 -->
-          <el-table
-            :data="clusterReData"
-            style="width: 100%"
-            empty-text="cannot find"
-            border
-            stripe
-            height="400"
-          >
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-            </el-table-column>
-            <el-table-column label="physicochemical properties">
-              <el-table-column label="mononucleotide" width="130">
-                <template slot-scope="scope">
-                  <div
-                    v-for="(data, index) in scope.row.mononucleotide"
-                    :key="index"
+      <el-container>
+        <el-main class="browseBody">
+          <!-- 按参考文献将理化性质分类 -->
+          <div class="cluster-reference">
+            <h3><a name="cluster1"></a>Clustering according to references</h3>
+            <p>
+              In this part, the physicochemical properties were clustered
+              according to the references.
+            </p>
+            <!-- height 固定表头 -->
+            <el-table
+              :data="clusterReData"
+              style="width: 100%"
+              empty-text="cannot find"
+              border
+              stripe
+              height="400"
+            >
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              </el-table-column>
+              <el-table-column label="physicochemical properties">
+                <el-table-column label="mononucleotide" width="150">
+                  <template slot-scope="scope">
+                    <div
+                      v-for="(data, index) in scope.row.mononucleotide"
+                      :key="index"
+                    >
+                      {{ data }}
+                    </div>
+                  </template>
+                </el-table-column>
+                <el-table-column label="dinucleotide_DNA" width="300">
+                  <template slot-scope="scope">
+                    <!-- <div v-html="scope.row.dinucleotide_DNA"></div> -->
+                    <div
+                      v-for="(data, index) in scope.row.dinucleotide_DNA"
+                      :key="index"
+                    >
+                      {{ data }}
+                    </div>
+                  </template>
+                </el-table-column>
+                <el-table-column label="dinucleotide_RNA">
+                  <template slot-scope="scope">
+                    <!-- <div v-html="scope.row.dinucleotide_RNA"></div> -->
+                    <div
+                      v-for="(data, index) in scope.row.dinucleotide_RNA"
+                      :key="index"
+                    >
+                      {{ data }}
+                    </div>
+                  </template>
+                </el-table-column>
+                <el-table-column label="trinucleotide">
+                  <template slot-scope="scope">
+                    <!-- <div v-html="scope.row.trinucleotide"></div> -->
+                    <div
+                      v-for="(data, index) in scope.row.trinucleotide"
+                      :key="index"
+                    >
+                      {{ data }}
+                    </div>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+            </el-table>
+          </div>
+
+          <!-- 按kmer将理化性质分类 -->
+          <div class="cluster-k">
+            <h3><a name="cluster2"></a>Clustering according to k-tuple</h3>
+            <p>
+              In this part, the physicochemical properties were clustered
+              according to the k-tuple nucleotides (mononucleotide-DNA,
+              dinucleotide-DNA, dinucleotide-RNA, trinucleotide-DNA). And we
+              will do a count in the form of a bar chart.
+            </p>
+            <el-table
+              :data="ktuple"
+              border
+              stripe
+              :show-header="status"
+              empty-text="cannot find"
+              style="width: 100%"
+            >
+              <el-table-column prop="name" width="150"> </el-table-column>
+              <el-table-column>
+                <template slot-scope="props">
+                  <!-- {{ props.row.property }} -->
+                  <el-table
+                    :data="props.row.propertyname"
+                    border
+                    stripe
+                    :show-header="status"
+                    empty-text="cannot find"
                   >
-                    {{ data }}
-                  </div>
+                    <el-table-column prop="col0"></el-table-column>
+                    <el-table-column prop="col1"></el-table-column>
+                    <el-table-column prop="col2"></el-table-column>
+                    <el-table-column prop="col3"></el-table-column>
+                    <el-table-column prop="col4"></el-table-column>
+                  </el-table>
                 </template>
               </el-table-column>
-              <el-table-column label="dinucleotide_DNA" width="300">
-                <template slot-scope="scope">
-                  <!-- <div v-html="scope.row.dinucleotide_DNA"></div> -->
-                  <div
-                    v-for="(data, index) in scope.row.dinucleotide_DNA"
-                    :key="index"
-                  >
-                    {{ data }}
-                  </div>
-                </template>
-              </el-table-column>
-              <el-table-column label="dinucleotide_RNA">
-                <template slot-scope="scope">
-                  <!-- <div v-html="scope.row.dinucleotide_RNA"></div> -->
-                  <div
-                    v-for="(data, index) in scope.row.dinucleotide_RNA"
-                    :key="index"
-                  >
-                    {{ data }}
-                  </div>
-                </template>
-              </el-table-column>
-              <el-table-column label="trinucleotide">
-                <template slot-scope="scope">
-                  <!-- <div v-html="scope.row.trinucleotide"></div> -->
-                  <div
-                    v-for="(data, index) in scope.row.trinucleotide"
-                    :key="index"
-                  >
-                    {{ data }}
-                  </div>
-                </template>
-              </el-table-column>
-            </el-table-column>
-          </el-table>
-        </div>
-
-        <!-- 按kmer将理化性质分类 -->
-        <div class="cluster-k">
-          <h3><a name="cluster2"></a>Clustering according to k-tuple</h3>
-          <p>
-            In this part, the physicochemical properties were clustered
-            according to the k-tuple nucleotides (mononucleotide-DNA,
-            dinucleotide-DNA, dinucleotide-RNA, trinucleotide-DNA). And we will
-            do a count in the form of a bar chart.
-          </p>
-          <el-table
-            :data="ktuple"
-            border
-            stripe
-            :show-header="status"
-            empty-text="cannot find"
-            style="width: 100%"
-          >
-            <el-table-column prop="name" width="150"> </el-table-column>
-            <el-table-column>
-              <template slot-scope="props">
-                <!-- {{ props.row.property }} -->
-                <el-table
-                  :data="props.row.propertyname"
-                  border
-                  stripe
-                  :show-header="status"
-                  empty-text="cannot find"
-                >
-                  <el-table-column prop="col0"></el-table-column>
-                  <el-table-column prop="col1"></el-table-column>
-                  <el-table-column prop="col2"></el-table-column>
-                  <el-table-column prop="col3"></el-table-column>
-                  <el-table-column prop="col4"></el-table-column>
-                </el-table>
-              </template>
-            </el-table-column>
-          </el-table>
-          <p>
-            Quantitative bar chart of each kind (mononucleotide-DNA,
-            dinucleotide-DNA, dinucleotide-RNA, trinucleotide-DNA).
-          </p>
-          <div
-            id="myChart"
-            style="width: 400px;height:300px;margin:0 auto;"
-          ></div>
-          <!-- <table border="2" cellpadding="10" style="width: 100%" bgcolor="#eee">
+            </el-table>
+            <p>
+              Quantitative bar chart of each kind (mononucleotide-DNA,
+              dinucleotide-DNA, dinucleotide-RNA, trinucleotide-DNA).
+            </p>
+            <div
+              id="myChart"
+              style="width: 400px;height:300px;margin:0 auto;"
+            ></div>
+            <!-- <table border="2" cellpadding="10" style="width: 100%" bgcolor="#eee">
             <tr v-for="tuple in ktuple" :key="tuple.name">
               <td width="150">{{ tuple.name }}</td>
               <td>
@@ -195,531 +205,539 @@
                   </tr>
                   <tr v-else v-for="row in tuple.rows" :key="row">
                     <td v-for="col in 5" :key="col">-->
-          <!-- 有些情况下，可能会提示越界，因为最后一行不够5列 -->
-          <!-- {{ tuple.property[(row - 1) * 5 + col - 1] }}
+            <!-- 有些情况下，可能会提示越界，因为最后一行不够5列 -->
+            <!-- {{ tuple.property[(row - 1) * 5 + col - 1] }}
                     </td>
                   </tr>
                 </table>
               </td>
             </tr>
           </table> -->
-        </div>
+          </div>
 
-        <!-- Mononucleotide-DNA-Original -->
-        <div>
-          <h3><a name="browse1"></a>Mononucleotide-DNA-Original</h3>
-          <el-table
-            :data="monodnaoriginal"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column prop="ID" label="ID" width="80"></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="120"
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <!-- 为表中的PMID加链接 -->
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="A" label="A"></el-table-column>
-            <el-table-column prop="C" label="C"></el-table-column>
-            <el-table-column prop="G" label="G"></el-table-column>
-            <el-table-column prop="T" label="T"></el-table-column>
-          </el-table>
-        </div>
-
-        <!-- Dinucleotide-DNA-Original -->
-        <div>
-          <h3><a name="browse2-1"></a>Dinucleotide-DNA-Original</h3>
-          <el-table
-            :data="didnaoriginal"
-            height="400"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column
-              prop="ID"
-              label="ID"
-              width="80"
-              fixed
-            ></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="200"
-              fixed
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <!-- AA AC AG AT...的数据 -->
-            <el-table-column
-              v-for="(item, index) in didna"
-              :label="item"
-              :prop="item"
-              :key="index"
+          <!-- Mononucleotide-DNA-Original -->
+          <div>
+            <h3><a name="browse1"></a>Mononucleotide-DNA-Original</h3>
+            <el-table
+              :data="monodnaoriginal"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
             >
-            </el-table-column>
-          </el-table>
-        </div>
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="125"
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <!-- 为表中的PMID加链接 -->
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="A" label="A"></el-table-column>
+              <el-table-column prop="C" label="C"></el-table-column>
+              <el-table-column prop="G" label="G"></el-table-column>
+              <el-table-column prop="T" label="T"></el-table-column>
+            </el-table>
+          </div>
 
-        <!-- Dinucleotide-RNA-Original -->
-        <div>
-          <h3><a name="browse2-2"></a>Dinucleotide-RNA-Original</h3>
-          <el-table
-            :data="dirnaoriginal"
-            height="400"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column
-              prop="ID"
-              label="ID"
-              width="80"
-              fixed
-            ></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="200"
-              fixed
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column
-              v-for="(item, index) in dirna"
-              :label="item"
-              :prop="item"
-              :key="index"
+          <!-- Dinucleotide-DNA-Original -->
+          <div>
+            <h3><a name="browse2-1"></a>Dinucleotide-DNA-Original</h3>
+            <el-table
+              :data="didnaoriginal"
+              height="400"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
             >
-            </el-table-column>
-          </el-table>
-        </div>
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+                fixed
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="200"
+                fixed
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <!-- AA AC AG AT...的数据 -->
+              <el-table-column
+                v-for="(item, index) in didna"
+                :label="item"
+                :prop="item"
+                :key="index"
+              >
+              </el-table-column>
+            </el-table>
+          </div>
 
-        <!-- Trinucleotide-DNA-Original -->
-        <div>
-          <h3><a name="browse3"></a>Trinucleotide-DNA-Original</h3>
-          <el-table
-            :data="tridnaoriginal"
-            height="400"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column
-              prop="ID"
-              label="ID"
-              width="80"
-              fixed
-            ></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="200"
-              fixed
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column
-              v-for="(item, index) in tridna"
-              :label="item"
-              :prop="item"
-              :key="index"
+          <!-- Dinucleotide-RNA-Original -->
+          <div>
+            <h3><a name="browse2-2"></a>Dinucleotide-RNA-Original</h3>
+            <el-table
+              :data="dirnaoriginal"
+              height="400"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
             >
-            </el-table-column>
-          </el-table>
-        </div>
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+                fixed
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="200"
+                fixed
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column
+                v-for="(item, index) in dirna"
+                :label="item"
+                :prop="item"
+                :key="index"
+              >
+              </el-table-column>
+            </el-table>
+          </div>
 
-        <!-- Mononucleotide-DNA-Standard -->
-        <div>
-          <h3><a name="browse4"></a>Mononucleotide-DNA-Standard</h3>
-          <el-table
-            :data="monodnastandard"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column prop="ID" label="ID" width="80"></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="120"
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="A" label="A"></el-table-column>
-            <el-table-column prop="C" label="C"></el-table-column>
-            <el-table-column prop="G" label="G"></el-table-column>
-            <el-table-column prop="T" label="T"></el-table-column>
-          </el-table>
-        </div>
-
-        <!-- Dinucleotide-DNA-Standard -->
-        <div>
-          <h3><a name="browse5-1"></a>Dinucleotide-DNA-Standard</h3>
-          <el-table
-            :data="didnastandard"
-            height="400"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column
-              prop="ID"
-              label="ID"
-              width="80"
-              fixed
-            ></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="200"
-              fixed
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <!-- 数据 -->
-            <el-table-column
-              v-for="(item, index) in didna"
-              :label="item"
-              :prop="item"
-              :key="index"
+          <!-- Trinucleotide-DNA-Original -->
+          <div>
+            <h3><a name="browse3"></a>Trinucleotide-DNA-Original</h3>
+            <el-table
+              :data="tridnaoriginal"
+              height="400"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
             >
-            </el-table-column>
-          </el-table>
-        </div>
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+                fixed
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="200"
+                fixed
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column
+                v-for="(item, index) in tridna"
+                :label="item"
+                :prop="item"
+                :key="index"
+              >
+              </el-table-column>
+            </el-table>
+          </div>
 
-        <!-- Dinucleotide-RNA-Standard -->
-        <div>
-          <h3><a name="browse5-2"></a>Dinucleotide-RNA-Standard</h3>
-          <el-table
-            :data="dirnastandard"
-            height="400"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column
-              prop="ID"
-              label="ID"
-              width="80"
-              fixed
-            ></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="200"
-              fixed
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column
-              v-for="(item, index) in dirna"
-              :label="item"
-              :prop="item"
-              :key="index"
+          <!-- Mononucleotide-DNA-Standard -->
+          <div>
+            <h3><a name="browse4"></a>Mononucleotide-DNA-Standard</h3>
+            <el-table
+              :data="monodnastandard"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
             >
-            </el-table-column>
-          </el-table>
-        </div>
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="125"
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="A" label="A"></el-table-column>
+              <el-table-column prop="C" label="C"></el-table-column>
+              <el-table-column prop="G" label="G"></el-table-column>
+              <el-table-column prop="T" label="T"></el-table-column>
+            </el-table>
+          </div>
 
-        <!-- Trinucleotide-DNA-Standard -->
-        <div>
-          <h3><a name="browse6"></a>Trinucleotide-DNA-Standard</h3>
-          <el-table
-            :data="tridnastandard"
-            height="400"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column
-              prop="ID"
-              label="ID"
-              width="80"
-              fixed
-            ></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="200"
-              fixed
-            ></el-table-column>
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column
-              v-for="(item, index) in tridna"
-              :label="item"
-              :prop="item"
-              :key="index"
+          <!-- Dinucleotide-DNA-Standard -->
+          <div>
+            <h3><a name="browse5-1"></a>Dinucleotide-DNA-Standard</h3>
+            <el-table
+              :data="didnastandard"
+              height="400"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
             >
-            </el-table-column>
-          </el-table>
-        </div>
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+                fixed
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="200"
+                fixed
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <!-- 数据 -->
+              <el-table-column
+                v-for="(item, index) in didna"
+                :label="item"
+                :prop="item"
+                :key="index"
+              >
+              </el-table-column>
+            </el-table>
+          </div>
 
-        <!-- 显示参考文献 -->
-        <div>
-          <h3><a name="reference"></a>References</h3>
-          <el-table
-            :data="references"
-            height="400"
-            empty-text="cannot find"
-            border
-            stripe
-            style="width: 100%"
-          >
-            <el-table-column prop="ReferID" label="ReferID" width="100">
-              <template slot-scope="scope">
-                <a
-                  v-if="scope.row.ReferID == 'REID0029'"
-                  :href="reid0029"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a
-                  v-else-if="scope.row.ReferID == 'REID0030'"
-                  :href="reid0030"
-                  target="_black"
-                >
-                  {{ scope.row.ReferID }}
-                </a>
-                <a v-else :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.ReferID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="PubMedID" label="PubMedID" width="100">
-              <template slot-scope="scope">
-                <a :href="url + scope.row.PubMedID" target="_black">
-                  {{ scope.row.PubMedID }}
-                </a>
-              </template>
-            </el-table-column>
-            <el-table-column prop="Reference" label="Reference">
-            </el-table-column>
-          </el-table>
-        </div>
-        <!-- <div>
+          <!-- Dinucleotide-RNA-Standard -->
+          <div>
+            <h3><a name="browse5-2"></a>Dinucleotide-RNA-Standard</h3>
+            <el-table
+              :data="dirnastandard"
+              height="400"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
+            >
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+                fixed
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="200"
+                fixed
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column
+                v-for="(item, index) in dirna"
+                :label="item"
+                :prop="item"
+                :key="index"
+              >
+              </el-table-column>
+            </el-table>
+          </div>
+
+          <!-- Trinucleotide-DNA-Standard -->
+          <div>
+            <h3><a name="browse6"></a>Trinucleotide-DNA-Standard</h3>
+            <el-table
+              :data="tridnastandard"
+              height="400"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
+            >
+              <el-table-column
+                prop="ID"
+                label="ID"
+                width="80"
+                fixed
+              ></el-table-column>
+              <el-table-column
+                prop="PropertyName"
+                label="PropertyName"
+                width="200"
+                fixed
+              ></el-table-column>
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column
+                v-for="(item, index) in tridna"
+                :label="item"
+                :prop="item"
+                :key="index"
+              >
+              </el-table-column>
+            </el-table>
+          </div>
+
+          <!-- 显示参考文献 -->
+          <div>
+            <h3><a name="reference"></a>References</h3>
+            <el-table
+              :data="references"
+              height="400"
+              empty-text="cannot find"
+              border
+              stripe
+              style="width: 100%"
+            >
+              <el-table-column prop="ReferID" label="ReferID" width="100">
+                <template slot-scope="scope">
+                  <a
+                    v-if="scope.row.ReferID == 'REID0029'"
+                    :href="reid0029"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a
+                    v-else-if="scope.row.ReferID == 'REID0030'"
+                    :href="reid0030"
+                    target="_black"
+                  >
+                    {{ scope.row.ReferID }}
+                  </a>
+                  <a v-else :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.ReferID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="PubMedID" label="PubMedID" width="100">
+                <template slot-scope="scope">
+                  <a :href="url + scope.row.PubMedID" target="_black">
+                    {{ scope.row.PubMedID }}
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Reference" label="Reference">
+              </el-table-column>
+            </el-table>
+          </div>
+          <!-- <div>
           <h3><a name="reference"></a>References</h3>
           <table border="2" cellpadding="10" style="width: 100%" bgcolor="#eee">
             <tr>
@@ -759,8 +777,8 @@
           </table>
         </div> -->
 
-        <!-- 返回顶部按钮 -->
-        <!-- <el-backtop target=".browseBody">
+          <!-- 返回顶部按钮 -->
+          <!-- <el-backtop target=".browseBody">
           <div
             style="{
                         height: 100%;
@@ -775,9 +793,10 @@
             TOP
           </div>
         </el-backtop> -->
-      </el-main>
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
@@ -1202,19 +1221,54 @@ var object2object = function(objectArray, length, rows) {
 </script>
 
 <style scoped>
+.title {
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 80px;
+  height: 80px;
+  background: #e6f0ef; /* Old browsers */
+  background: -moz-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    135deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f0ef', endColorstr='#b4ede7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.el-table {
+  font-size: 15px;
+  color: #232324;
+}
 .el-aside {
   color: #333;
+}
+.el-menu-item {
+  font-size: 15px;
 }
 
 h3 {
   text-align: left;
-  border-bottom: 2px solid;
-  border-bottom-color: #fff;
-  padding-bottom: 10px;
+  /* border-bottom: 2px solid; */
+  /* border-bottom-color: rgb(115, 200, 200); */
+  padding: 10px;
+  background-color: rgb(115, 200, 200);
+  color: #e6f0ef;
+  border-radius: 10px;
 }
+
 p {
   text-align: left;
   line-height: 2em;
+  font-size: 16px;
 }
 a {
   color: #202122;

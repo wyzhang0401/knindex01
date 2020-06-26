@@ -29,10 +29,14 @@ export default {
     // this.values = this.$route.params.values;
 
     // 使用this.$router.resolve传参时获取参数的方法
-    if (localStorage.getItem("kmers") && localStorage.getItem("values")) {
-      this.kmers = localStorage.getItem("kmers");
-      this.values = JSON.parse(localStorage.getItem("values"));
-      localStorage.clear();
+    // if (localStorage.getItem("kmers") && localStorage.getItem("values")) {
+    //   this.kmers = localStorage.getItem("kmers");
+    //   this.values = JSON.parse(localStorage.getItem("values"));
+    //   localStorage.clear();
+    // }
+    if (sessionStorage.getItem("kmers") && sessionStorage.getItem("values")) {
+      this.kmers = sessionStorage.getItem("kmers");
+      this.values = JSON.parse(sessionStorage.getItem("values"));
     }
     this.toVisual();
   },

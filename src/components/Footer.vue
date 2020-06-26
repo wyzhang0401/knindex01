@@ -1,7 +1,8 @@
 <template>
   <div class="footer">
     <p>
-      Copyright &copy; 2020 ........
+      Copyright &copy; 2020 College of Intelligence and Computing, Tianjin
+      University All rights reserved.
     </p>
   </div>
 </template>

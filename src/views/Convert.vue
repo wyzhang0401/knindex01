@@ -44,12 +44,13 @@
           <i class="el-icon-question" @click="question"></i>
           <!-- v-model 为默认选中 -->
           <el-select v-model="form.max" size="mini">
-            <el-option label="5" value="5"></el-option>
-            <el-option label="10" value="10"></el-option>
-            <el-option label="15" value="15"></el-option>
-            <el-option label="20" value="20"></el-option>
-            <el-option label="25" value="25"></el-option>
-            <el-option label="30" value="30"></el-option>
+            <!-- 即使value值不是动态的，也要加冒号，这样获取的值就是Number类型，否则是String类型，在后续绑定max值是会有数据类型错误 -->
+            <el-option label="5" :value="5"></el-option>
+            <el-option label="10" :value="10"></el-option>
+            <el-option label="15" :value="15"></el-option>
+            <el-option label="20" :value="20"></el-option>
+            <el-option label="25" :value="25"></el-option>
+            <el-option label="30" :value="30"></el-option>
           </el-select>
         </el-form-item>
         <!-- 理化特性选择区 根据参数读取数据库，根据返回来的数值取理化性质-->
@@ -175,7 +176,7 @@
           label="DNA or RNA sequences"
           style="margin-top: 10px; border-top: 1px solid rgb(115, 200, 200);"
         >
-          <span>Enter DNA or RNA sequences:</span>
+          <span>Enter a DNA or RNA sequence:</span>
           <!-- 核酸序列输入区 -->
           <table style="width: 100%;" cellpadding="5">
             <!-- 核酸序列输入 1行1列 -->
@@ -196,24 +197,24 @@
                   <td>
                     <input
                       type="button"
-                      value="example"
-                      style="width: 90px"
+                      value="Example"
+                      style="font-size: 16px; height: 40px; width: 100px; border-radius: 5px; color: #fff; background-color: #337ab7; border-color: #337ab7"
                       @click="getExample"
                     />
                   </td>
                   <td>
                     <input
                       type="button"
-                      value="getValue"
-                      style="width: 90px"
+                      value="Getvalue"
+                      style="font-size: 16px; height: 40px; width: 100px; border-radius: 5px; color: #fff; background-color: #5cb85c; border-color: #5cb85c"
                       @click="getValue('form')"
                     />
                   </td>
                   <td>
                     <input
                       type="button"
-                      value="Visualization"
-                      style="width: 90px"
+                      value="Visualize"
+                      style="font-size: 16px; height: 40px; width: 100px; border-radius: 5px; color: #fff; background-color: #e6a23c; border-color: #e6a23c"
                       @click="toVisual"
                     />
                   </td>
@@ -506,16 +507,28 @@ export default {
       //   }
       // });
       // window.open(routeUrl.href, "_blank");
-      let routeUrl = this.$router.resolve({
-        name: "Visualization"
-      });
-      // 传kmers
-      localStorage.setItem("kmers", this.kmersVisual);
-      // console.log(this.kmersVisual);
-      // console.log(JSON.stringify(this.valuesVisual));
-      // 以JSON串的形式传递参数
-      localStorage.setItem("values", JSON.stringify(this.valuesVisual));
-      window.open(routeUrl.href, "_blank");
+
+      // 在不按‘getValue’按钮时也可以有可视化的结果
+      this.getValue("form");
+      // if判断语句可以保证在没有输入序列的情况下，点击可视化按钮不跳转页面
+      if (this.form.inputSequence != "" && this.form.propertyid.length != 0) {
+        let routeUrl = this.$router.resolve({
+          name: "Visualization"
+        });
+        // 传kmers
+        // localStorage.setItem("kmers", this.kmersVisual);
+        // // console.log(this.kmersVisual);
+        // // console.log(JSON.stringify(this.valuesVisual));
+        // // 以JSON串的形式传递参数
+        // localStorage.setItem("values", JSON.stringify(this.valuesVisual));
+        // window.open(routeUrl.href, "_blank");
+        sessionStorage.setItem("kmers", this.kmersVisual);
+        // console.log(this.kmersVisual);
+        // console.log(JSON.stringify(this.valuesVisual));
+        // 以JSON串的形式传递参数
+        sessionStorage.setItem("values", JSON.stringify(this.valuesVisual));
+        window.open(routeUrl.href, "_blank");
+      }
     }
   }
 };
@@ -583,14 +596,23 @@ var object2object = function(objectArray, length, rows) {
 
 <style scoped lang="less">
 .myForm {
-  margin: 0 auto; /* 表单居中设置 */
+  margin: 10px auto; /* 表单居中设置 */
   padding: 40px 60px;
-  /* border: 1px solid #686b6d; */
-  width: 60%;
-  background: lightgray;
-  color: #606266;
+  width: 70%;
+  // background: lightgray;
+  // color: #606266;
+  border: 3px solid #b4ede7;
+  border-radius: 10px;
+}
+.el-table {
+  font-size: 15px;
+  color: #232324;
 }
 
+/deep/ .el-form-item__label {
+  font-size: 15px;
+  color: #232324;
+}
 /* .el-select {
   width: 60%;
 } */
@@ -620,11 +642,11 @@ var object2object = function(objectArray, length, rows) {
 }
 
 .el-form-item {
-  border-top: 1px solid rgb(115, 200, 200);
+  border-top: 1px solid #ebeef5; // 表格线条颜色
   margin-bottom: 0;
 }
 .el-form-item:not(:nth-child(6)) /deep/ .el-form-item__label {
-  border-right: 1px solid rgb(115, 200, 200);
+  border-right: 1px solid #ebeef5;
 }
 // /deep/ 相当于 >>>
 /deep/ .el-checkbox__inner:hover {
@@ -662,9 +684,13 @@ var object2object = function(objectArray, length, rows) {
 }
 /deep/ .el-radio__label {
   padding-left: 5px;
+  font-size: 15px;
+  color: #232324;
 }
 /deep/ .el-textarea__inner {
   border-color: rgb(115, 200, 200) !important;
+  font-size: 15px;
+  color: #232324;
 }
 
 /deep/ .el-select .el-input__inner:focus {

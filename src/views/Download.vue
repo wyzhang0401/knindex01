@@ -1,54 +1,90 @@
 <template>
-  <el-container class="app-main">
-    <el-header style="color: #606060;">
-      <i
-        style="font-size: 30px; margin-right: 20px"
-        class="el-icon-download"
-      ></i>
-      Download Files
-      <hr />
-    </el-header>
-    <el-main class="download">
-      <el-row :gutter="40" type="flex" justify="center">
-        <el-col :span="10">
-          <div class="grid-content">
-            <div class="download-title">
-              original values
-            </div>
-            <div class="download-content">
-              <ul>
-                <li v-for="item in original" :key="item.id">
-                  <!-- 文件在本地public中 -->
-                  <a :href="'/data/original/' + item.url" download="">
-                    {{ item.file }}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="10">
-          <div class="grid-content">
-            <div class="download-title">
-              standard values
-            </div>
-            <div class="download-content">
-              <ul>
-                <li v-for="item in standard" :key="item.id">
-                  <a :href="'/data/standard/' + item.url" download="">
-                    {{ item.file }}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <div>
-        <a href="/data/all_values.zip" download="">all_values.zip</a>
+  <div>
+    <el-row class="title" style="color: #606060;">
+      <img
+        src="../assets/download.png"
+        style="height: 45px; width: auto;  vertical-align: middle; margin-right: 20px;"
+      />
+      Download files
+    </el-row>
+    <div class="files">
+      <h3>Original values</h3>
+      <div class="download-content">
+        <p>
+          <a :href="'/data/original/MonoDNA-original.xlsx'" download="">
+            mononucleotide-DNA-original
+          </a>
+          : this file includes 1 set of physicochemical property of
+          mononucleotide (DNA).
+        </p>
+        <p>
+          <a :href="'/data/original/DiDNA-original.xlsx'" download="">
+            dinucleotide-DNA-original
+          </a>
+          : this file includes 147 sets of physicochemical property of
+          dinucleotide (DNA).
+        </p>
+        <p>
+          <a :href="'/data/original/DiRNA-original.xlsx'" download="">
+            dinucleotide-RNA-original
+          </a>
+          : this file includes 22 sets of physicochemical property of
+          dinucleotide (RNA).
+        </p>
+        <p>
+          <a :href="'/data/original/TriDNA-original.xlsx'" download="">
+            trinucleotide-DNA-original
+          </a>
+          : this file includes 12 sets of physicochemical property of
+          trinucleotide (DNA).
+        </p>
       </div>
-    </el-main>
-  </el-container>
+    </div>
+
+    <div class="files">
+      <h3>Standard values</h3>
+      <div class="download-content">
+        <p>
+          <a :href="'/data/original/MonoDNA-standard.xlsx'" download="">
+            mononucleotide-DNA-standard
+          </a>
+          : this file includes 1 set of physicochemical property of
+          mononucleotide (DNA).
+        </p>
+        <p>
+          <a :href="'/data/original/DiDNA-standard.xlsx'" download="">
+            dinucleotide-DNA-standard
+          </a>
+          : this file includes 147 sets of physicochemical property of
+          dinucleotide (DNA).
+        </p>
+        <p>
+          <a :href="'/data/original/DiRNA-standard.xlsx'" download="">
+            dinucleotide-RNA-standard
+          </a>
+          : this file includes 22 sets of physicochemical property of
+          dinucleotide (RNA).
+        </p>
+        <p>
+          <a :href="'/data/original/TriDNA-standard.xlsx'" download="">
+            trinucleotide-DNA-standard
+          </a>
+          : this file includes 12 sets of physicochemical property of
+          trinucleotide (DNA).
+        </p>
+      </div>
+    </div>
+
+    <div class="files">
+      <h3>All files and a manual for users</h3>
+      <div class="download-content">
+        <p>
+          <a href="/data/all.zip" download="">all.zip</a>
+          : this zip file includes all the files above and a manual for users.
+        </p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -105,30 +141,58 @@ export default {
 </script>
 
 <style scoped>
-.el-header {
+.title {
+  text-align: center;
   font-size: 1.5em;
+  line-height: 80px;
+  height: 80px;
+  background: #e6f0ef; /* Old browsers */
+  background: -moz-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    -45deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    135deg,
+    #e6f0ef 45%,
+    #b4ede7 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f0ef', endColorstr='#b4ede7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
-.el-row {
-  margin-bottom: 20px;
-}
-.el-col {
-  border-radius: 4px;
-}
-.grid-content {
-  background: #e5e9f2;
-  border-radius: 60px;
-  height: 300px;
-}
-.download-title {
-  font-size: 25px;
-  padding-top: 10px;
-}
+
 .download-content {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid rgb(115, 200, 200);
+  border-radius: 10px;
 }
-li {
-  margin: 20px;
+/* 
+a {
+  color: #232324;
+} */
+
+h3 {
+  text-align: left;
+  padding: 10px;
+  background-color: rgb(115, 200, 200);
+  color: #e6f0ef;
+  border-radius: 10px;
+}
+
+.files {
+  width: 70%;
+  margin: 0 auto;
+}
+
+p {
+  text-align: justify;
+  line-height: 1.5em;
 }
 </style>

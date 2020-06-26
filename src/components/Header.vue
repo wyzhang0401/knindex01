@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="webtitle">
     <nav>
       <ul class="topnav" id="dropdownClick">
         <li class="title">
@@ -62,11 +62,11 @@ export default {
           url: "/convert",
           name: "Convert"
         },
-        {
-          id: 6,
-          url: "/manual.pdf",
-          name: "Manual"
-        },
+        // {
+        //   id: 6,
+        //   url: "/manual.pdf",
+        //   name: "Manual"
+        // },
         {
           id: 7,
           url: "/help",
@@ -117,13 +117,18 @@ export default {
   margin: 0;
   line-height: 1;
 } */
-
+/* .webtitle {
+  background: url("../assets/title.png") no-repeat bottom right;
+} */
 nav {
   display: block;
   width: 100%;
   margin: 0;
   height: 70px;
   background-color: rgb(250, 250, 250);
+  background: url(../assets/nucleotides.png) no-repeat bottom right;
+  /* background-position: center center; */
+  background-size: 180px 70px;
 }
 
 /* .decorate {
@@ -161,6 +166,7 @@ ul.topnav li a {
   padding: 20px;
   color: rgb(115, 200, 200);
   font-weight: bold;
+  font-family: "Source Sans Pro", sans-serif !important;
   height: 30px;
   line-height: 30px;
   text-align: center;
@@ -202,7 +208,7 @@ ul.topnav .is-active a {
   }
 
   /* 下拉图标大小不变 */
-  ul.topnav.responsive li:not(:nth-child(9)) a {
+  ul.topnav.responsive li:not(:nth-child(8)) a {
     text-align: left;
     height: 0 !important;
     line-height: 0 !important;

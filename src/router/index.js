@@ -50,11 +50,11 @@ const routes = [
     name: "Convert",
     component: Convert
   },
-  {
-    path: "/manual.pdf",
-    name: "Manual",
-    component: () => import("../views/Manual.vue")
-  },
+  // {
+  //   path: "/manual.pdf",
+  //   name: "Manual",
+  //   component: () => import("../views/Manual.vue")
+  // },
   {
     path: "/visualization",
     name: "Visualization",
