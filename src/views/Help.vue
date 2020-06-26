@@ -26,9 +26,17 @@
         </div>
         <img alt="home help" src="../assets/help/homehelp.png" />
       </el-collapse-item> -->
+      <el-collapse-item title="2. Browse help" name="2">
+        <p>
+          <strong>(1).</strong> Users can browse information of physicochemical
+          properties and their original references. The side navigation shows
+          all the contents users can browse in the 'Browse' page.
+        </p>
+        <img alt="browse help" src="../assets/help/browsehelp.png" />
+      </el-collapse-item>
       <el-collapse-item
-        title="2. Descriptions about 'Search' page and Fuzzy search"
-        name="2"
+        title="3. Descriptions about 'Search' page and Fuzzy search"
+        name="3"
       >
         <p>
           <strong>(1).</strong> The picture below is an introduction to the
@@ -51,11 +59,11 @@
         </p>
         <img alt="search help" src="../assets/help/searchhelp3.png" />
       </el-collapse-item>
-      <el-collapse-item title="3. Convert and Visualization" name="3">
+      <el-collapse-item title="4. Convert and Visualization" name="4">
         <p>
-          In the 'Convert' page, users can convert a nucleotide sequence into
-          numerical sequences according to selected physicochemical properties,
-          with basic kmers of the sequence as intermediate result.
+          In the 'Visualization' page, users can convert a nucleotide sequence
+          into numerical sequences according to selected physicochemical
+          properties, with basic kmers of the sequence as intermediate result.
         </p>
         <p>
           <strong>(1).</strong> After the user select the first three
@@ -80,21 +88,13 @@
         </p>
         <img alt="convert help" src="../assets/help/converthelp3.png" />
       </el-collapse-item>
-      <el-collapse-item title="4. Download help" name="4">
+      <el-collapse-item title="5. Download help" name="5">
         <p>
           <strong>(1).</strong> Users can download the files respectively and
           all.zip including all the above files. As we show in the picture
           below.
         </p>
         <img alt="download help" src="../assets/help/downloadhelp.png" />
-      </el-collapse-item>
-      <el-collapse-item title="5. Browse help" name="5">
-        <p>
-          <strong>(1).</strong> Users can browse information of physicochemical
-          properties and their original references. The side navigation shows
-          all the contents users can browse in the 'Browse' page.
-        </p>
-        <img alt="browse help" src="../assets/help/browsehelp.png" />
       </el-collapse-item>
     </el-collapse>
   </div>

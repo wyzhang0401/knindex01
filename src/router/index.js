@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import Help from "../views/Help.vue";
-import Download from "../views/Download.vue";
-import Search from "../views/Search.vue";
 import Browse from "../views/Browse.vue";
-import Convert from "../views/Convert.vue";
+import Download from "../views/Download.vue";
+import Help from "../views/Help.vue";
+import Search from "../views/Search.vue";
 import Visualization from "../views/Visualization.vue";
+import Visgraph from "../views/Visgraph.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +21,26 @@ const routes = [
     component: Home
   },
   {
+    path: "/browse",
+    name: "Browse",
+    component: Browse
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: Search
+  },
+  {
+    path: "/visualization",
+    name: "Visualization",
+    component: Visualization
+  },
+  {
+    path: "/download",
+    name: "Download",
+    component: Download
+  },
+  {
     path: "/help",
     name: "Help",
     component: Help
@@ -30,35 +50,15 @@ const routes = [
     //component: () =>
     //import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
-  {
-    path: "/search",
-    name: "Search",
-    component: Search
-  },
-  {
-    path: "/download",
-    name: "Download",
-    component: Download
-  },
-  {
-    path: "/browse",
-    name: "Browse",
-    component: Browse
-  },
-  {
-    path: "/convert",
-    name: "Convert",
-    component: Convert
-  },
   // {
   //   path: "/manual.pdf",
   //   name: "Manual",
   //   component: () => import("../views/Manual.vue")
   // },
   {
-    path: "/visualization",
-    name: "Visualization",
-    component: Visualization
+    path: "/visualization_graph",
+    name: "Visualizationgraph",
+    component: Visgraph
   }
 ];
 
