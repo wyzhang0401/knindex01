@@ -44,23 +44,23 @@ export default {
         },
         {
           id: 2,
-          url: "/search",
-          name: "Search"
-        },
-        {
-          id: 3,
-          url: "/download",
-          name: "Download"
-        },
-        {
-          id: 4,
           url: "/browse",
           name: "Browse"
         },
         {
+          id: 3,
+          url: "/search",
+          name: "Search"
+        },
+        {
+          id: 4,
+          url: "/visualization",
+          name: "Visualization"
+        },
+        {
           id: 5,
-          url: "/convert",
-          name: "Convert"
+          url: "/download",
+          name: "Download"
         },
         // {
         //   id: 6,
@@ -68,7 +68,7 @@ export default {
         //   name: "Manual"
         // },
         {
-          id: 7,
+          id: 6,
           url: "/help",
           name: "Help"
         }
