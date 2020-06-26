@@ -12,11 +12,14 @@
       style="height: expression(document.body.clientHeight-130px); border: 1px solid #eee"
     >
       <!-- 侧面导航栏 -->
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+      <el-aside
+        width="200px"
+        style="background-color: rgb(238, 241, 246); text-align:left;"
+      >
         <el-menu :default-openeds="['1', '2', '3']">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-data-analysis"></i>Cluster
+              <i class="el-icon-data-analysis"></i><strong>Cluster</strong>
             </template>
 
             <el-menu-item index="1-1">
@@ -29,9 +32,10 @@
 
           <el-submenu index="2">
             <template slot="title"
-              ><i class="el-icon-s-grid"></i>Browse</template
+              ><i class="el-icon-s-grid"></i><strong>Browse</strong></template
             >
-            <el-menu-item-group title="Original values">
+            <el-submenu index="21">
+              <template slot="title">Original values</template>
               <el-menu-item index="2-1">
                 <a href="#browse1">mononucleotide</a>
               </el-menu-item>
@@ -47,8 +51,10 @@
               <el-menu-item index="2-3">
                 <a href="#browse3">trinucleotide</a>
               </el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Standard values">
+            </el-submenu>
+
+            <el-submenu index="22">
+              <template slot="title">Standard values</template>
               <el-menu-item index="2-4">
                 <a href="#browse4">mononucleotide</a>
               </el-menu-item>
@@ -64,12 +70,12 @@
               <el-menu-item index="2-6">
                 <a href="#browse6">trinucleotide</a>
               </el-menu-item>
-            </el-menu-item-group>
+            </el-submenu>
           </el-submenu>
 
           <el-submenu index="3">
             <template slot="title">
-              <i class="el-icon-document"></i>References
+              <i class="el-icon-document"></i><strong>References</strong>
             </template>
             <el-menu-item index="3-1">
               <a href="#reference">references</a>
