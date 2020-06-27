@@ -205,7 +205,7 @@
                   <td>
                     <input
                       type="button"
-                      value="Getvalue"
+                      value="Get value"
                       style="font-size: 16px; height: 40px; width: 100px; border-radius: 5px; color: #fff; background-color: #5cb85c; border-color: #5cb85c"
                       @click="getValue('form')"
                     />

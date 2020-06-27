@@ -32,7 +32,7 @@ var sqlMap = {
     // 按参考文献分类的表
     cluster_reference: "select * from cluster_refer",
 
-    //  按元分类
+    //  按元分类以及用于模糊查询的输入建议
     monoproperty:
       "select PropertyName from `monodna-original` order by PropertyName",
     didnaproperty:
@@ -40,7 +40,7 @@ var sqlMap = {
     dirnaproperty:
       "select PropertyName from `dirna-original` order by PropertyName",
     triproperty:
-      "select PropertyName from `tridna-original` order by PropertyName",
+      "select distinct PropertyName from `tridna-original` order by PropertyName",
 
     // 查询参考文献
     references: "select * from pubmedid order by ReferID"

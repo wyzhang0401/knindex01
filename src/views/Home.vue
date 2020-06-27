@@ -16,47 +16,71 @@
           Introduction of KNIndex</i
         >
         <p>
-          KNIndex is the abbreviation of K-Nucleotides index database. The data
-          are physicochemical property values of k-mer (k=1, 2, 3), which
-          contain original values and standard values. This web server is
-          divided into six parts, namely home page, search page, download page,
-          browse page, convert page and help page.
+          <b>KNIndex</b> is the abbreviation of <b>K</b>-<b>N</b>ucleotides
+          <b>Index</b> database. The database deposits the original and standard
+          values of the physicochemical properties for <i>k</i>-tuple
+          nucleotides (<i>k</i> = 1, 2, 3).
         </p>
         <p>
-          <router-link to="/home">Home</router-link>
+          The
+          <router-link to="/home"
+            ><b><i>Home</i></b></router-link
+          >
           page mainly describes the organization of the KNIndex server.
         </p>
         <p>
-          In the
-          <router-link to="/browse">Browse</router-link>
-          page, we classify physicochemical properties according to references
-          and k-tuple respectively. And we list all the values and references in
-          this page.
+          The
+          <router-link to="/browse"
+            ><b><i>Browse</i></b></router-link
+          >
+          page categories all physicochemical property values in a hierarchical
+          structure. The users can browse all data on this page.
         </p>
         <p>
-          <router-link to="/search">Search</router-link>
-          page provides the ability to search by name of physicochemical
-          properties. If you want to query for a property, but have forgotten
-          how to spell it, you can use '*' or '%' for a fuzzy search. The values
-          of physicochemical properties will be showed in tables. And in the
-          search results, users can find a link to original reference of each
-          physicochemical property.
+          The
+          <router-link to="/search"
+            ><b><i>Search</i></b></router-link
+          >
+          page provides the ability to search by the name of physicochemical
+          properties. If a user wants to find a property without knowing the
+          exact name of it, the user may use the fuzzy search function, which
+          allows the user to use '*' or '%' as wildcards in queries. The search
+          box has auto-complete abilities. A dropdown menu will be displayed if
+          the content of the search box matches the first few letters of the
+          names of physicochemical properties. The values of physicochemical
+          properties will be shown in tables, with links to the original
+          references of each physicochemical property.
         </p>
         <p>
-          <router-link to="/visualization">Visualization</router-link>
-          page realizes the function of converting the input nucleic acid
-          sequence into numerical sequences according to selected
-          physicochemical properties.
+          The
+          <router-link to="/visualization"
+            ><b><i>Visualization</i></b></router-link
+          >
+          page implements the function of converting DNA/RNA sequences to
+          numerical series according to selected physicochemical properties.
         </p>
         <p>
-          You can download all the data of the KNIndex from the
-          <router-link to="/download">Download</router-link>
-          page.
+          The
+          <router-link to="/download"
+            ><b><i>Download</i></b></router-link
+          >
+          page list all static links to the data packages in the KNIndex
+          database.
         </p>
         <p>
-          You can learn how to use the web server from
-          <router-link to="/help">Help</router-link>
-          page.
+          The
+          <router-link to="/help"
+            ><b><i>Help</i></b></router-link
+          >
+          page provides step-by-step instructions on how to use the KNIndex
+          database.
+        </p>
+        <p>
+          Currently, <b>182</b> physicochemical properties from
+          <b>47</b> reference literatures are deposited in the KNIndex database.
+        </p>
+        <p>
+          Last update on: Jun. 27th, 2020.
         </p>
       </el-col>
       <el-col :span="12">
@@ -66,12 +90,85 @@
           src="../assets/property.jpg"
           style="width: 600px; height:400px;"
         />
+        <!-- <div
+          id="myChart"
+          style="width: auto; height:400px; margin:60px auto;"
+        ></div> -->
+        <img
+          alt="Quantitative statistics of physicochemical properties"
+          src="../assets/statistics.png"
+          style="width: 500px; height:400px;"
+        />
       </el-col>
     </el-row>
   </div>
 </template>
 
-<script></script>
+<script>
+// import echarts from "echarts";
+
+// export default {
+//   mounted() {
+//     // 可视化柱状图
+//     this.toVisual();
+//   },
+//   methods: {
+//     toVisual() {
+//       // 基于准备好的dom，初始化echarts实例
+//       let myChart = echarts.init(document.getElementById("myChart"));
+//       // 指定图表的配置项和数据
+//       let option = {
+//         title: {
+//           text: "Quantitative statistics of physicochemical properties",
+//           x: "center",
+//           y: "bottom"
+//         },
+//         tooltip: {},
+//         xAxis: {
+//           data: [
+//             "Mononucleotide",
+//             "Dinucleotide (DNA)",
+//             "Dinucleotide (RNA)",
+//             "Trinucleotide"
+//           ],
+//           // 坐标倾斜显示
+//           axisLabel: {
+//             interval: 0,
+//             rotate: "30"
+//           }
+//         },
+//         grid: {
+//           //直角坐标系内绘图网格
+//           // show: true, //是否显示直角坐标系网格。[ default: false ]
+//           // left: "20%", //grid 组件离容器左侧的距离。
+//           // right: "30px",
+//           // borderColor: "#c45455", //网格的边框颜色
+//           bottom: "30%" //
+//         },
+//         toolbox: {
+//           feature: {
+//             saveAsImage: {
+//               pixelRatio: 3
+//             }
+//           }
+//         },
+//         yAxis: {},
+//         series: [
+//           {
+//             type: "bar",
+//             data: [1, 147, 22, 12],
+//             label: {
+//               show: true,
+//               position: "inside"
+//             }
+//           }
+//         ]
+//       };
+//       myChart.setOption(option);
+//     }
+//   }
+// };
+</script>
 
 <style scoped>
 .title {
@@ -107,6 +204,7 @@
   line-height: 1.5em;
   /* 首行缩进 */
   /* text-indent: 2em; */
+  /* 两端对齐 */
   text-align: justify;
 }
 .content p a {

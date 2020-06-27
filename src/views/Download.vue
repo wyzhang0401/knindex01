@@ -11,32 +11,32 @@
       <h3>Original values</h3>
       <div class="download-content">
         <p>
-          <a :href="'/data/original/MonoDNA-original.xlsx'" download="">
+          <a :href="'/data/original/MonoDNA-original.zip'" download="">
             mononucleotide-DNA-original
           </a>
-          : this file includes 1 set of physicochemical property of
-          mononucleotide (DNA).
+          : This file contains 1 physicochemical property of mononucleotide
+          (DNA).
         </p>
         <p>
-          <a :href="'/data/original/DiDNA-original.xlsx'" download="">
+          <a :href="'/data/original/DiDNA-original.zip'" download="">
             dinucleotide-DNA-original
           </a>
-          : this file includes 147 sets of physicochemical property of
-          dinucleotide (DNA).
+          : This file contains 147 physicochemical properties of dinucleotide
+          (DNA).
         </p>
         <p>
-          <a :href="'/data/original/DiRNA-original.xlsx'" download="">
+          <a :href="'/data/original/DiRNA-original.zip'" download="">
             dinucleotide-RNA-original
           </a>
-          : this file includes 22 sets of physicochemical property of
-          dinucleotide (RNA).
+          : This file contains 22 physicochemical properties of dinucleotide
+          (RNA).
         </p>
         <p>
-          <a :href="'/data/original/TriDNA-original.xlsx'" download="">
+          <a :href="'/data/original/TriDNA-original.zip'" download="">
             trinucleotide-DNA-original
           </a>
-          : this file includes 12 sets of physicochemical property of
-          trinucleotide (DNA).
+          : This file contains 12 physicochemical properties of trinucleotide
+          (DNA).
         </p>
       </div>
     </div>
@@ -45,42 +45,43 @@
       <h3>Standard values</h3>
       <div class="download-content">
         <p>
-          <a :href="'/data/original/MonoDNA-standard.xlsx'" download="">
+          <a :href="'/data/standard/MonoDNA-standard.zip'" download="">
             mononucleotide-DNA-standard
           </a>
-          : this file includes 1 set of physicochemical property of
-          mononucleotide (DNA).
+          : This file contains 1 physicochemical property of mononucleotide
+          (DNA).
         </p>
         <p>
-          <a :href="'/data/original/DiDNA-standard.xlsx'" download="">
+          <a :href="'/data/standard/DiDNA-standard.zip'" download="">
             dinucleotide-DNA-standard
           </a>
-          : this file includes 147 sets of physicochemical property of
-          dinucleotide (DNA).
+          : This file contains 147 physicochemical properties of dinucleotide
+          (DNA).
         </p>
         <p>
-          <a :href="'/data/original/DiRNA-standard.xlsx'" download="">
+          <a :href="'/data/standard/DiRNA-standard.zip'" download="">
             dinucleotide-RNA-standard
           </a>
-          : this file includes 22 sets of physicochemical property of
-          dinucleotide (RNA).
+          : This file contains 22 physicochemical properties of dinucleotide
+          (RNA).
         </p>
         <p>
-          <a :href="'/data/original/TriDNA-standard.xlsx'" download="">
+          <a :href="'/data/standard/TriDNA-standard.zip'" download="">
             trinucleotide-DNA-standard
           </a>
-          : this file includes 12 sets of physicochemical property of
-          trinucleotide (DNA).
+          : This file conatins 12 physicochemical properties of trinucleotide
+          (DNA).
         </p>
       </div>
     </div>
 
     <div class="files">
-      <h3>All files and a manual for users</h3>
+      <h3>All files for users</h3>
       <div class="download-content">
         <p>
           <a href="/data/all.zip" download="">all.zip</a>
-          : this zip file includes all the files above and a manual for users.
+          : This file contains all above files.
+          <!-- and a PDF format user manual. -->
         </p>
       </div>
     </div>

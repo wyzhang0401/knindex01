@@ -40,22 +40,23 @@
       >
         <p>
           <strong>(1).</strong> The picture below is an introduction to the
-          'Search' page.
+          'Search' page. A dropdown menu will be displayed if the content of the
+          search box matches the first few letters of the names of
+          physicochemical properties.
         </p>
         <img alt="search help" src="../assets/help/searchhelp1.png" />
         <p>
           <strong>(2).</strong> When you don't choose the nucleotides and input
           physicochemical property name, you could click on search button to get
-          all tables.
+          all tables. And in the search results, users can find a link to
+          original reference of each physicochemical property.
         </p>
         <img alt="search help" src="../assets/help/searchhelp2.png" />
         <p>
           <strong>(3).</strong> When you choose a certain nucleotide, you could
           click on search button to get a table and export it to Excel. If you
           want to query for a property, but have forgotten how to spell it, you
-          can use “*” or “%” for a fuzzy search. And in the search results,
-          users can find a link to original reference of each physicochemical
-          property.
+          can use '*' or '%' for a fuzzy search.
         </p>
         <img alt="search help" src="../assets/help/searchhelp3.png" />
       </el-collapse-item>
