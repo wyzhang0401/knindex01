@@ -3,9 +3,9 @@
     <el-row class="title" style="color: #606060;">
       <img
         style="margin-right: 20px; height: 55px; width: 55px; vertical-align: middle;"
-        src="../assets/datavis.png"
+        src="../assets/convert.png"
       />
-      Convert and Visualization
+      Batch Convert
     </el-row>
     <div class="myForm">
       <!-- Form 表单 -->
@@ -127,128 +127,43 @@
           </el-table-column>
         </el-table>
 
-        <!-- <table border="1" cellpadding="5" style="width:100%; margin-top:20px;">
-          <tr>
-            <td width="40" style="font-size:12px">number</td>
-             跨列 colspan
-            <td colspan="4">physicochemical properties</td>
-          </tr>
-          <tr v-for="row in form.properties.rows" :key="row">
-            <td>{{ row }}</td>
-            <td v-for="col in 4" :key="col" align="left">
-              <el-radio-group v-model="form.propertyid">
-                <el-radio
-                  :label="form.properties.property[(row - 1) * 4 + col - 1].ID"
-                >
-                  <span class="all_label">
-                    {{
-                      form.properties.property[(row - 1) * 4 + col - 1]
-                        .PropertyName
-                    }}
-                  </span>
-                </el-radio>
-              </el-radio-group>
-            </td>
-          </tr>
-          <tr v-if="form.properties.remain != 0">
-            <td>{{ form.properties.rows + 1 }}</td>
-            <td v-for="col in form.properties.remain" :key="col" align="left">
-              <el-radio-group v-model="form.propertyid">
-                <el-radio
-                  :label="
-                    form.properties.property[form.properties.rows * 4 + col - 1]
-                      .ID
-                  "
-                >
-                  <span class="all_label">
-                    {{
-                      form.properties.property[
-                        form.properties.rows * 4 + col - 1
-                      ].PropertyName
-                    }}
-                  </span>
-                </el-radio>
-              </el-radio-group>
-            </td>
-          </tr>
-        </table> -->
-
         <el-form-item
-          label="DNA or RNA sequences"
-          style="margin-top: 10px; border-top: 1px solid rgb(115, 200, 200);"
+          label="Batch convert"
+          style="margin-top: 10px; border-top: 1px solid rgb(115, 200, 200); border-bottom: 1px solid #ebeef5;"
         >
-          <span style="font-size: 15px;">Enter a DNA or RNA sequence:</span>
-          <!-- 核酸序列输入区 -->
-          <table style="width: 100%;" cellpadding="5">
-            <!-- 核酸序列输入 1行1列 -->
-            <tr>
-              <td>
-                <el-input
-                  type="textarea"
-                  placeholder="click on example to get an nucleotide sequence or enter a nucleotide sequence"
-                  v-model="form.inputSequence"
-                  :autosize="{ minRows: 4, maxRows: 10 }"
-                ></el-input>
-              </td>
-            </tr>
-            <!-- 获取示例按钮和获取值的按钮,将两个按钮又分成了一行两列 -->
-            <tr>
-              <table style="width: 50%; margin: 0 auto;" cellpadding="3">
-                <tr>
-                  <td>
-                    <input
-                      type="button"
-                      value="Example"
-                      style="font-size: 16px; height: 40px; width: 100px; border-radius: 5px; color: #fff; background-color: #337ab7; border: #337ab7"
-                      @click="getExample"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="button"
-                      value="Get value"
-                      style="font-size: 16px; height: 40px; width: 100px; border-radius: 5px; color: #fff; background-color: #5cb85c; border: #5cb85c"
-                      @click="getValue('form')"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="button"
-                      value="Visualize"
-                      style="font-size: 16px; height: 40px; width: 100px; border-radius: 5px; color: #fff; background-color: #e6a23c; border: #e6a23c"
-                      @click="toVisual"
-                    />
-                  </td>
-                </tr>
-              </table>
-            </tr>
-            <!-- 值的输出区 -->
-            <tr>
-              <td>
-                <el-input
-                  type="textarea"
-                  placeholder="the kmers of nucleotide sequence "
-                  v-model="form.outputkmers"
-                  :autosize="{ minRows: 4, maxRows: 10 }"
-                ></el-input>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <el-input
-                  type="textarea"
-                  placeholder="the values of kmers "
-                  v-model="form.outputValue"
-                  :autosize="{ minRows: 4, maxRows: 10 }"
-                ></el-input>
-              </td>
-            </tr>
-          </table>
+          <!-- <input
+            @change="fileSelect"
+            type="file"
+            ref="file"
+            
+          /> -->
+          <!-- href="javascript:;" -->
+          <div style="display: flex;height: 40px;">
+            <div class="upload">
+              Select file
+              <input
+                @change="fileSelect"
+                class="change"
+                type="file"
+                ref="file"
+              />
+            </div>
+            <input
+              type="button"
+              value="Upload file"
+              class="submit"
+              @click="submit"
+            />
+          </div>
         </el-form-item>
       </el-form>
+      <div class="progress-wrap">
+        <p>
+          Upload <i>{{ file.name }} </i>progress
+        </p>
+        <p class="progress"><span :style="style"></span></p>
+      </div>
     </div>
-    <!-- <router-link to="/visualization">visualization</router-link> -->
-    <!-- <router-view></router-view> -->
   </div>
 </template>
 
@@ -268,7 +183,6 @@ export default {
           propertyname: [],
           length: 0,
           rows: 0 // 正好每行4个的总行数
-          // remain: 0 // 最后一行的个数
         },
         propertyid: [], // 选中的理化特性的id,复选框，可以设置最多选几个
         inputSequence: "",
@@ -276,6 +190,7 @@ export default {
         outputValue: "",
         max: 5
       },
+      // 验证规则
       rules: {
         kmer: [
           { required: true, message: "Please choose kmer", trigger: "change" }
@@ -283,7 +198,7 @@ export default {
         nucleic: [
           {
             required: true,
-            message: "Please choose a sequence type",
+            message: "Please choose sequence type",
             trigger: "change"
           }
         ],
@@ -295,33 +210,31 @@ export default {
           }
         ]
       },
-      disable: false,
-      // max: 5, // 复选框最多选择的个数
-      status: false,
-      kmersVisual: [], // 传递给可视化页面
-      // propertyVisual: [],
-      valuesVisual: {} // {"理化特性":[值的数组],"":[], ...}
+      disable: false, // 设置DNA和RNA的可选状态
+      status: false, // 设置理化特性的表格不显示表头
+      file: "", // 加载的文件
+      percentCompleted: 0
     };
   },
 
   // computed和watch结合 监听前三个参数的值，然后显示对应的理化特性
   computed: {
     showProperty() {
-      // 两种方法均可
       const { kmer, nucleic, value } = this.form;
-      // const {
-      //   form: { kmer },
-      //   form: { nucleic },
-      //   form: { value }
-      // } = this;
       return { kmer, nucleic, value };
+    },
+
+    // 用于文件加载上传
+    style() {
+      return {
+        width: this.percentCompleted + "%"
+      };
     }
   },
 
   watch: {
     showProperty: {
       handler: function(val) {
-        // console.log(val);
         var _this = this;
         // 监听前3个参数，发生变化则清空下面的内容
         _this.form.propertyid = [];
@@ -331,7 +244,6 @@ export default {
 
         if (val.kmer != "" && val.nucleic != "" && val.value != "") {
           var myAPI = "/api/property/" + val.kmer + val.nucleic + val.value;
-          // console.log(myAPI);
           axios.post(myAPI).then(respond => {
             _this.form.properties.property = respond.data;
             _this.form.properties.length = respond.data.length;
@@ -350,17 +262,8 @@ export default {
               _this.form.properties.length,
               _this.form.properties.rows
             );
-            // _this.form.properties.remain =
-            //   _this.form.properties.length - _this.form.properties.rows * 4;
-            // console.log(_this.form.properties.property);
-            // console.log(_this.form.properties.rows);
           });
         }
-        // if (val.propertyid.length == 5) {
-        //   alert(
-        //     "please choose no more than five properties because of limited computing resources!"
-        //   );
-        // }
       }
     }
   },
@@ -375,11 +278,9 @@ export default {
         this.form.nucleic = "dna";
       } else {
         this.disable = false;
-        // this.form.nucleic = "";
       }
     },
 
-    // 关于可选择理化特性最多数的理由提示
     question() {
       this.$alert(
         "You can set the maximum number of selectable physicochemical properties because of the limited computing resources and speed.",
@@ -390,17 +291,43 @@ export default {
       );
     },
 
-    getExample() {
-      // 要根据DNA,RNA的不同，设定不同的例子
+    // 提交fasta文件
+    async submit() {
       var _this = this;
-      var formData = _this.form;
-      if (formData.nucleic == "") {
-        alert("Please choose parameters first!");
-      } else if (formData.nucleic == "dna") {
-        _this.form.inputSequence = "AATCGAATCGGCTAGTCCAATAGTACGTAGTGACGGCCATTG";
-      } else if (formData.nucleic == "rna") {
-        _this.form.inputSequence = "AAUCGAAUCGGCUAGUCCAAUAGUACGUAGUGACGGCCAUUG";
+      if (this.file == "") {
+        alert("Please select a fasta file!");
+        return false;
       }
+      const formData = new FormData();
+      formData.append("file", this.file); // 这里的“file”要和后端upload.single("file")的“file”同一个名称
+      //   console.log(formData);
+      await axios
+        .post("/api/property/upload", formData, {
+          onUploadProgress: progressEvent => {
+            var percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            this.percentCompleted = percentCompleted;
+          }
+        })
+        // eslint-disable-next-line no-unused-vars
+        .then(function(respond) {
+          if (respond.statusText == "OK") {
+            _this.$message({
+              message: "File upload successfully",
+              type: "success"
+            });
+          }
+        });
+      this.file = "";
+      //   this.percentCompleted = 0;
+    },
+
+    fileSelect() {
+      let file = this.$refs.file.files[0];
+      this.file = file;
+      //   console.log(this.file);
+      this.percentCompleted = 0;
     },
 
     getValue(formName) {
@@ -410,24 +337,8 @@ export default {
         // 验证前三个参数的有效性
         if (valid) {
           let property = _this.form.properties.property;
-          // 如果用户输入的有小写，那么要将所有字母转换为大写，因为文件中都是大写
-          let inputSequence = _this.form.inputSequence.toUpperCase();
-          // 判断输入串中是否只包含ATCG或者AUCG
-          if (_this.form.nucleic == "dna") {
-            if (!this.hasT(inputSequence)) {
-              alert(
-                "You selected 'DNA'! Please input a sequence only contains A, T, C or G!"
-              );
-              return false;
-            }
-          } else if (_this.form.nucleic == "rna") {
-            if (!this.hasU(inputSequence)) {
-              alert(
-                "You selected 'RNA'! Please input a sequence only contains A, U, C or G!"
-              );
-              return false;
-            }
-          }
+          // console.log(property);
+          let inputSequence = _this.form.inputSequence;
           let propertyid = _this.form.propertyid;
           let kmer = _this.form.kmer;
           let i = 0;
@@ -474,15 +385,10 @@ export default {
           // 获取outputValue的所有内容
           // 在选出的对象中将带kmers值的部分提取出来
           let n = 0;
-          // let value = []; // kmers对应的理化性质propertyid的值 [[],[],[],...]
           let output = "";
           let visual = {};
-          // console.log(tmpProperty);
+
           for (n = 0; n < tmpProperty.length; n++) {
-            // eslint-disable-next-line no-unused-vars
-            // let { ID, PropertyName, ReferID, PubMedID, ...tmp } = tmpProperty[
-            //   n
-            // ];
             let tmpValue = [];
             for (let p = 0; p < kmers.length; p++) {
               tmpValue.push(tmpProperty[n][kmers[p]]);
@@ -507,90 +413,6 @@ export default {
           return false;
         }
       });
-    },
-
-    toVisual() {
-      // let _this = this;
-      // 这种不支持在新窗口打开
-      // console.log(_this.form.outputkmers);
-      // 路径要用name才能将params传递过去，path传query，而且query会显示在地址栏的url中
-      // this.$router.push({
-      //   name: "Visualization",
-      //   params: {
-      //     kmers: _this.form.outputkmers,
-      //     values: _this.form.outputValue
-      //   }
-      // });
-
-      // 这种可以实现在新窗口打开可视化界面, 下面这种传参方式是错误的
-      // let routeUrl = this.$router.resolve({
-      //   name: "Visualization",
-      //   params: {
-      //     kmers: _this.form.outputkmers,
-      //     values: _this.form.outputValue
-      //   }
-      // });
-      // window.open(routeUrl.href, "_blank");
-
-      // 在不按‘getValue’按钮时也可以有可视化的结果
-      this.getValue("form");
-      let _this = this;
-      let inputSequence = this.form.inputSequence;
-      // if判断语句可以保证在没有输入序列的情况下，点击可视化按钮不跳转页面
-      if (inputSequence != "" && this.form.propertyid.length != 0) {
-        // 判断输入串中是否只包含ATCG或者AUCG
-        if (_this.form.nucleic == "dna") {
-          if (!this.hasT(inputSequence)) {
-            // alert("Please input a sequence only contains A, T, C or G!"); // 在浏览器中只提示一次就可以了
-            return false;
-          }
-        } else if (_this.form.nucleic == "rna") {
-          if (!this.hasU(inputSequence)) {
-            // alert("Please input a sequence only contains A, U, C or G!");
-            return false;
-          }
-        }
-        let routeUrl = this.$router.resolve({
-          name: "Visualizationgraph"
-        });
-        // 传kmers
-        // localStorage.setItem("kmers", this.kmersVisual);
-        // // console.log(this.kmersVisual);
-        // // console.log(JSON.stringify(this.valuesVisual));
-        // // 以JSON串的形式传递参数
-        // localStorage.setItem("values", JSON.stringify(this.valuesVisual));
-        // window.open(routeUrl.href, "_blank");
-        sessionStorage.setItem("kmers", this.kmersVisual);
-        // console.log(this.kmersVisual);
-        // console.log(JSON.stringify(this.valuesVisual));
-        // 以JSON串的形式传递参数
-        sessionStorage.setItem("values", JSON.stringify(this.valuesVisual));
-        window.open(routeUrl.href, "_blank");
-      }
-    },
-
-    // 判断一个输入序列中是否只含有ATCG
-    hasT(sequence) {
-      sequence.toUpperCase();
-      let reg = /^[ATCG]+$/;
-      if (reg.test(sequence)) {
-        // 是ATCG的字符串
-        return true;
-      } else {
-        return false;
-      }
-    },
-
-    // 判断一个输入序列中是否只含有AUCG
-    hasU(sequence) {
-      sequence.toUpperCase();
-      let reg = /^[AUCG]+$/;
-      if (reg.test(sequence)) {
-        // 是AUCG的字符串
-        return true;
-      } else {
-        return false;
-      }
     }
   }
 };
@@ -662,8 +484,6 @@ var object2object = function(objectArray, length, rows) {
   margin: 10px auto; /* 表单居中设置 */
   padding: 40px 60px;
   width: 70%;
-  // background: lightgray;
-  // color: #606266;
   border: 3px solid #b4ede7;
   border-radius: 10px;
 }
@@ -677,9 +497,6 @@ var object2object = function(objectArray, length, rows) {
   font-size: 15px;
   color: #232324;
 }
-/* .el-select {
-  width: 60%;
-} */
 
 .title {
   text-align: center;
@@ -710,9 +527,13 @@ var object2object = function(objectArray, length, rows) {
   margin-bottom: 0;
 }
 
-.el-form-item:not(:nth-child(6)) /deep/ .el-form-item__label {
+.el-form-item /deep/ .el-form-item__label {
   border-right: 1px solid #ebeef5;
 }
+
+// .el-form-item:nth-child(6) /deep/ .el-form-item__label {
+//   height: 53px;
+// }
 
 // /deep/ 相当于 >>>
 /deep/ .el-checkbox__inner:hover {
@@ -768,5 +589,55 @@ var object2object = function(objectArray, length, rows) {
 
 .el-select-dropdown__item.selected {
   color: rgb(115, 200, 200);
+}
+
+.upload {
+  height: 35px;
+  line-height: 35px;
+  //   position: relative;
+  font-size: 15px;
+  width: 90px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #5cb85c;
+  margin: auto 30px;
+}
+
+.change {
+  position: absolute;
+  overflow: hidden;
+  width: 90px;
+  left: 30px;
+  top: 0;
+  opacity: 0;
+}
+
+.submit {
+  font-size: 15px;
+  height: 35px;
+  width: 90px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #337ab7;
+  border: #337ab7;
+  margin: auto 10px; // 按钮居中
+}
+
+.progress-wrap {
+  width: 400px;
+  margin: 0 auto;
+  p {
+    width: 100%;
+  }
+  .progress {
+    background-color: #c5c8ce;
+    height: 15px;
+    span {
+      display: block;
+      background-color: #19be6b;
+      height: 100%;
+      width: 0;
+    }
+  }
 }
 </style>

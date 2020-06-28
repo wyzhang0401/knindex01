@@ -12,12 +12,14 @@
         />
         Search from Database
       </el-row>
-      <el-input
+      <!-- 输入后匹配输入建议会出现渲染不及时的错误，改为输入前匹配输入建议 -->
+      <el-autocomplete
         placeholder="physicochemical property name(use * or % to do a fuzzy search)"
         v-model="inputContent"
         clearable
         @keyup.enter.native="Search"
         class="input-with-select"
+        :fetch-suggestions="querySearch"
       >
         <el-select
           v-model="nucleName"
@@ -45,7 +47,7 @@
           icon="el-icon-search"
           @click="Search"
         ></el-button>
-      </el-input>
+      </el-autocomplete>
     </div>
 
     <div class="content">
@@ -813,11 +815,11 @@ export default {
           options: [
             {
               value: "option1",
-              label: "original values"
+              label: "original-mono-DNA"
             },
             {
               value: "option2",
-              label: "standard values"
+              label: "standard-mono-DNA"
             }
           ]
         },
@@ -826,11 +828,11 @@ export default {
           options: [
             {
               value: "option3",
-              label: "original values"
+              label: "original-di-DNA"
             },
             {
               value: "option4",
-              label: "standard values"
+              label: "standard-di-DNA"
             }
           ]
         },
@@ -839,11 +841,11 @@ export default {
           options: [
             {
               value: "option5",
-              label: "original values"
+              label: "original-di-RNA"
             },
             {
               value: "option6",
-              label: "standard values"
+              label: "standard-di-RNA"
             }
           ]
         },
@@ -852,11 +854,11 @@ export default {
           options: [
             {
               value: "option7",
-              label: "original values"
+              label: "original-tri-DNA"
             },
             {
               value: "option8",
-              label: "standard values"
+              label: "standard-tri-DNA"
             }
           ]
         }
@@ -865,7 +867,16 @@ export default {
       inputContent: "",
       url: "https://www.ncbi.nlm.nih.gov/pubmed/?term=",
       reid0029: "https://doi.org/10.1002/bip.1981.360200513",
-      reid0030: "https://doi.org/10.1038/npg.els.0003122"
+      reid0030: "https://doi.org/10.1038/npg.els.0003122",
+      // reid0038: ,
+      // reid0044: ,
+      // 用于模糊匹配的输入建议
+      properties: [],
+      propertyresults: [],
+      monoproperty: [],
+      didnaproperty: [],
+      dirnaproperty: [],
+      triproperty: []
     };
   },
   methods: {
@@ -1179,6 +1190,120 @@ export default {
             _this.id = 10;
           });
       }
+    },
+
+    querySearch(queryString, cb) {
+      var properties = this.propertyresults;
+      // console.log("q", properties);
+      var results = queryString
+        ? properties.filter(this.createFilter(queryString))
+        : properties;
+      cb(results);
+    },
+    // !==-1 表示可以匹配包含的，而不是首字母
+    createFilter(queryString) {
+      return property => {
+        return (
+          // 这里必须是property.value 才有效?
+          property.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    }
+    // handleSelect(item) {
+    //   console.log(item);
+    // }
+  },
+
+  mounted() {
+    var _this = this;
+    axios.post("/api/property/getproperty_didna").then(respond => {
+      _this.properties = respond.data;
+      // console.log(_this.didnaproperty);
+    });
+    axios.post("/api/property/getproperty_dirna").then(respond => {
+      _this.dirnaproperty = respond.data;
+      _this.properties.push.apply(_this.properties, _this.dirnaproperty);
+    });
+    axios.post("/api/property/getproperty_tri").then(respond => {
+      _this.triproperty = respond.data;
+      _this.properties.push.apply(_this.properties, _this.triproperty);
+    });
+    axios.post("/api/property/getproperty_mono").then(respond => {
+      _this.monoproperty = respond.data;
+      _this.properties.push.apply(_this.properties, _this.monoproperty);
+      // 将键值 PropertyName 改为 value
+      var result = _this.properties.map(o => {
+        return { value: o.PropertyName };
+      });
+      _this.propertyresults = result;
+      // console.log(_this.propertyresults);
+    });
+  },
+  // 监听下拉框选择项，根据选择项进行输入建议的列表输出
+  watch: {
+    nucleName(val) {
+      var nucleName = val;
+      var _this = this;
+      // console.log(nucleName);
+      // 用于输入建议
+      if (nucleName == "") {
+        axios.post("/api/property/getproperty_didna").then(respond => {
+          _this.properties = respond.data;
+        });
+        axios.post("/api/property/getproperty_dirna").then(respond => {
+          _this.dirnaproperty = respond.data;
+          _this.properties.push.apply(_this.properties, _this.dirnaproperty);
+        });
+        axios.post("/api/property/getproperty_tri").then(respond => {
+          _this.triproperty = respond.data;
+          _this.properties.push.apply(_this.properties, _this.triproperty);
+        });
+        axios.post("/api/property/getproperty_mono").then(respond => {
+          _this.monoproperty = respond.data;
+          _this.properties.push.apply(_this.properties, _this.monoproperty);
+          // 将键值 PropertyName 改为 value
+          var result = _this.properties.map(o => {
+            return { value: o.PropertyName };
+          });
+          _this.propertyresults = result;
+        });
+      } else if (nucleName == "option1" || nucleName == "option2") {
+        axios.post("/api/property/getproperty_mono").then(respond => {
+          _this.properties = respond.data;
+          // 将键值 PropertyName 改为 value
+          var result = _this.properties.map(o => {
+            return { value: o.PropertyName };
+          });
+          _this.propertyresults = result;
+        });
+      } else if (nucleName == "option3" || nucleName == "option4") {
+        axios.post("/api/property/getproperty_didna").then(respond => {
+          _this.properties = respond.data;
+          // 将键值 PropertyName 改为 value
+          var result = _this.properties.map(o => {
+            return { value: o.PropertyName };
+          });
+          _this.propertyresults = result;
+        });
+      } else if (nucleName == "option5" || nucleName == "option6") {
+        axios.post("/api/property/getproperty_dirna").then(respond => {
+          _this.properties = respond.data;
+          // 将键值 PropertyName 改为 value
+          var result = _this.properties.map(o => {
+            return { value: o.PropertyName };
+          });
+          _this.propertyresults = result;
+        });
+      } else if (nucleName == "option7" || nucleName == "option8") {
+        axios.post("/api/property/getproperty_tri").then(respond => {
+          _this.properties = respond.data;
+          // 将键值 PropertyName 改为 value
+          var result = _this.properties.map(o => {
+            return { value: o.PropertyName };
+          });
+          _this.propertyresults = result;
+        });
+      }
     }
   }
 };
@@ -1215,14 +1340,29 @@ var sqlencode = function(str) {
 }
 .input-with-select {
   width: 60%;
-  font-size: 15px;
+  /* font-size: 15px; */
 }
 .el-collapse-item__header {
   font-size: 16px;
 }
+
 .el-select {
-  width: 140px;
+  width: 200px;
 }
+
+.el-select-group__title {
+  text-align: left;
+}
+
+.el-select-dropdown__item {
+  text-align: left;
+  text-indent: 2em;
+}
+
+.el-input {
+  font-size: 15px;
+}
+
 .content {
   padding: 10px;
 }

@@ -37,38 +37,38 @@
             <el-submenu index="21">
               <template slot="title">Original values</template>
               <el-menu-item index="2-1">
-                <a href="#browse1">Mononucleotide</a>
+                <a href="#mononucleotide">Mononucleotide</a>
               </el-menu-item>
               <el-submenu index="2-2">
                 <template slot="title">Dinucleotide</template>
                 <el-menu-item index="2-2-1">
-                  <a href="#browse2-1">DNA</a>
+                  <a href="#dinucleotidedna">DNA</a>
                 </el-menu-item>
                 <el-menu-item index="2-2-2">
-                  <a href="#browse2-2">RNA</a>
+                  <a href="#dinucleotiderna">RNA</a>
                 </el-menu-item>
               </el-submenu>
               <el-menu-item index="2-3">
-                <a href="#browse3">Trinucleotide</a>
+                <a href="#trinucleotide">Trinucleotide</a>
               </el-menu-item>
             </el-submenu>
 
             <el-submenu index="22">
               <template slot="title">Standard values</template>
               <el-menu-item index="2-4">
-                <a href="#browse4">Mononucleotide</a>
+                <a href="#mononucleotide-standard">Mononucleotide</a>
               </el-menu-item>
               <el-submenu index="2-5">
                 <template slot="title">Dinucleotide</template>
                 <el-menu-item index="2-5-1">
-                  <a href="#browse5-1">DNA</a>
+                  <a href="#dinucleotidedna-standard">DNA</a>
                 </el-menu-item>
                 <el-menu-item index="2-5-2">
-                  <a href="#browse5-2">RNA</a>
+                  <a href="#dinucleotiderna-standard">RNA</a>
                 </el-menu-item>
               </el-submenu>
               <el-menu-item index="2-6">
-                <a href="#browse6">Trinucleotide</a>
+                <a href="#trinucleotide-standard">Trinucleotide</a>
               </el-menu-item>
             </el-submenu>
           </el-submenu>
@@ -161,7 +161,13 @@
               empty-text="cannot find"
               style="width: 100%"
             >
-              <el-table-column prop="name" width="150"> </el-table-column>
+              <el-table-column prop="name" width="150">
+                <!-- 实现从home页跳转到指定行 用不到了，链接到值那里了-->
+                <!-- <template slot-scope="scope">
+                  <a :name="scope.row.name"></a>
+                  {{ scope.row.name }}
+                </template> -->
+              </el-table-column>
               <el-table-column>
                 <template slot-scope="props">
                   <!-- {{ props.row.property }} -->
@@ -205,7 +211,7 @@
 
           <!-- Mononucleotide-DNA-Original -->
           <div>
-            <h3><a name="browse1"></a>Mononucleotide-DNA-Original</h3>
+            <h3><a name="mononucleotide"></a>Mononucleotide-DNA-Original</h3>
             <el-table
               :data="monodnaoriginal"
               empty-text="cannot find"
@@ -261,7 +267,7 @@
 
           <!-- Dinucleotide-DNA-Original -->
           <div>
-            <h3><a name="browse2-1"></a>Dinucleotide-DNA-Original</h3>
+            <h3><a name="dinucleotidedna"></a>Dinucleotide-DNA-Original</h3>
             <el-table
               :data="didnaoriginal"
               height="400"
@@ -323,7 +329,7 @@
 
           <!-- Dinucleotide-RNA-Original -->
           <div>
-            <h3><a name="browse2-2"></a>Dinucleotide-RNA-Original</h3>
+            <h3><a name="dinucleotiderna"></a>Dinucleotide-RNA-Original</h3>
             <el-table
               :data="dirnaoriginal"
               height="400"
@@ -384,7 +390,7 @@
 
           <!-- Trinucleotide-DNA-Original -->
           <div>
-            <h3><a name="browse3"></a>Trinucleotide-DNA-Original</h3>
+            <h3><a name="trinucleotide"></a>Trinucleotide-DNA-Original</h3>
             <el-table
               :data="tridnaoriginal"
               height="400"
@@ -445,7 +451,9 @@
 
           <!-- Mononucleotide-DNA-Standard -->
           <div>
-            <h3><a name="browse4"></a>Mononucleotide-DNA-Standard</h3>
+            <h3>
+              <a name="mononucleotide-standard"></a>Mononucleotide-DNA-Standard
+            </h3>
             <el-table
               :data="monodnastandard"
               empty-text="cannot find"
@@ -500,7 +508,9 @@
 
           <!-- Dinucleotide-DNA-Standard -->
           <div>
-            <h3><a name="browse5-1"></a>Dinucleotide-DNA-Standard</h3>
+            <h3>
+              <a name="dinucleotidedna-standard"></a>Dinucleotide-DNA-Standard
+            </h3>
             <el-table
               :data="didnastandard"
               height="400"
@@ -562,7 +572,9 @@
 
           <!-- Dinucleotide-RNA-Standard -->
           <div>
-            <h3><a name="browse5-2"></a>Dinucleotide-RNA-Standard</h3>
+            <h3>
+              <a name="dinucleotiderna-standard"></a>Dinucleotide-RNA-Standard
+            </h3>
             <el-table
               :data="dirnastandard"
               height="400"
@@ -623,7 +635,9 @@
 
           <!-- Trinucleotide-DNA-Standard -->
           <div>
-            <h3><a name="browse6"></a>Trinucleotide-DNA-Standard</h3>
+            <h3>
+              <a name="trinucleotide-standard"></a>Trinucleotide-DNA-Standard
+            </h3>
             <el-table
               :data="tridnastandard"
               height="400"
@@ -789,6 +803,7 @@
 
 <script>
 import axios from "axios";
+import { Loading } from "element-ui";
 
 export default {
   data() {
@@ -955,16 +970,28 @@ export default {
         "TTG",
         "TTT"
       ],
-      references: []
+      references: [],
+      count: 14
     };
   },
   mounted() {
     var _this = this;
 
+    Loading.service({
+      fullscreen: true,
+      text: "Loading",
+      // lock: true;
+      // spinner: "el-icon-loading",
+      background: "rgba(0, 0, 0, 0.7)"
+    });
+
     // 根据参考文献聚类
     axios.post("/api/property/cluster_reference").then(respond => {
       var length = _this.clusterReData.length;
       _this.clusterReData = dataChange(respond.data, length);
+      _this.count--;
+      _this.closeLoading();
+      // console.log(_this.count);
     });
 
     // 根据k-tuple聚类
@@ -978,6 +1005,8 @@ export default {
         _this.ktuple[0].length,
         _this.ktuple[0].rows
       );
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/getproperty_didna").then(respond => {
       // _this.ktuple[1].property = object2array(respond.data);
@@ -989,6 +1018,8 @@ export default {
         _this.ktuple[1].length,
         _this.ktuple[1].rows
       );
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/getproperty_dirna").then(respond => {
       // _this.ktuple[2].property = object2array(respond.data);
@@ -1000,6 +1031,8 @@ export default {
         _this.ktuple[2].length,
         _this.ktuple[2].rows
       );
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/getproperty_tri").then(respond => {
       // _this.ktuple[3].property = object2array(respond.data);
@@ -1011,38 +1044,75 @@ export default {
         _this.ktuple[3].length,
         _this.ktuple[3].rows
       );
+      _this.count--;
+      _this.closeLoading();
     });
     // 查询参考文献表
     axios.post("/api/property/references").then(respond => {
       _this.references = respond.data;
       // console.log(_this.references);
+      _this.count--;
+      _this.closeLoading();
     });
 
     // 8个表的数据
     axios.post("/api/property/monodnaoriginal").then(respond => {
       _this.monodnaoriginal = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/monodnastandard").then(respond => {
       _this.monodnastandard = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/didnaoriginal").then(function(respond) {
       _this.didnaoriginal = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/didnastandard").then(function(respond) {
       _this.didnastandard = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/dirnaoriginal").then(function(respond) {
       _this.dirnaoriginal = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/dirnastandard").then(function(respond) {
       _this.dirnastandard = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/tridnaoriginal").then(function(respond) {
       _this.tridnaoriginal = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
     axios.post("/api/property/tridnastandard").then(function(respond) {
       _this.tridnastandard = respond.data;
+      _this.count--;
+      _this.closeLoading();
     });
+    // setTimeout(() => {
+    //   loading.close();
+    // }, 2000);
+    // let loadingInstance = Loading.service({});
+    // this.$nextTick(() => {
+    //   console.log("close");
+    //   loadingInstance.close();
+    // });
+  },
+  methods: {
+    closeLoading() {
+      // console.log(this.count);
+      if (this.count === 0) {
+        let loadingInstance = Loading.service({});
+        loadingInstance.close();
+      }
+    }
   }
 };
 // 方法错误，值会被覆盖

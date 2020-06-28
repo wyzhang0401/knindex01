@@ -76,8 +76,8 @@
           database.
         </p>
         <p>
-          Currently, <b>182</b> physicochemical properties from
-          <b>47</b> reference literatures are deposited in the KNIndex database.
+          Currently, <b>182</b> physicochemical properties are deposited in the
+          KNIndex database.
         </p>
         <p>
           Last update on: Jun. 27th, 2020.
@@ -94,11 +94,15 @@
           id="myChart"
           style="width: auto; height:400px; margin:60px auto;"
         ></div> -->
-        <img
-          alt="Quantitative statistics of physicochemical properties"
-          src="../assets/statistics.png"
-          style="width: 500px; height:400px;"
-        />
+        <!-- <div style="width: 600px; height:400px;">
+          <a v-for="image in statistics" :key="image.href" :href="image.href"
+            ><img
+              alt="Quantitative statistics of physicochemical properties"
+              :src="require('../assets/statistics/' + image.filesrc)"
+              style="width: auto; height:400px;"
+            />
+          </a>
+        </div> -->
       </el-col>
     </el-row>
   </div>
@@ -106,7 +110,6 @@
 
 <script>
 // import echarts from "echarts";
-
 // export default {
 //   mounted() {
 //     // 可视化柱状图

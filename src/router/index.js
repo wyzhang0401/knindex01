@@ -7,6 +7,7 @@ import Help from "../views/Help.vue";
 import Search from "../views/Search.vue";
 import Visualization from "../views/Visualization.vue";
 import Visgraph from "../views/Visgraph.vue";
+import Batchconvert from "../views/Batch Convert.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
     path: "/visualization",
     name: "Visualization",
     component: Visualization
+  },
+  {
+    path: "/batch_convert",
+    name: "Batch Convert",
+    component: Batchconvert
   },
   {
     path: "/download",

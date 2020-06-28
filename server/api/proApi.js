@@ -3,6 +3,8 @@ var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
 var $sql = require("../sqlMap");
+var multer = require("multer"); //传输文件
+var fs = require("fs");
 
 // 连接数据库
 var connection = mysql.createConnection(models.mysql);
@@ -323,4 +325,23 @@ router.post("/references", (req, res) => {
     }
   });
 });
+
+const upload = multer({
+  dest: "./upload"
+});
+
+router.post("/upload", upload.single("file"), (req, res) => {
+  // 判断文件是否存在
+  if (req.file.length === 0) {
+    res.render("error", { message: "the file cannot be empty!" });
+    return;
+  } else {
+    res.json({
+      file: req.file
+    });
+    var file = req.file;
+    fs.renameSync("./upload/" + file.filename, "./upload/sequence.fas");
+  }
+});
+
 module.exports = router;

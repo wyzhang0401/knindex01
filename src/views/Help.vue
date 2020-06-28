@@ -7,97 +7,126 @@
       />
       Help
     </el-row>
-    <el-collapse v-model="activeName" accordion class="content">
-      <el-collapse-item title="1. Overview" name="1">
-        <p>
-          The physicochemical properties of K-nucleotides are important
-          parameters for encoding a DNA or RNA sequence with a discrete model or
-          a vector, which play a vital role in bioinformatics. Here, we
-          developed a database named KNIndex to collect and integrate 182
-          physicochemical properties of mononucleotide, dinucleotide and
-          trinucleotide from existing database and published literatures.
-          KNIndex provides 182 properties including 1 of mononucleotide, 169 of
-          dinucleotide (both for DNA and RNA) and 12 of trinucleotide.
-        </p>
-      </el-collapse-item>
-      <!-- <el-collapse-item title="2. 'Home' page help" name="2">
+    <div class="perspective">
+      <h3>Tutorial</h3>
+      <el-collapse v-model="activeName" accordion class="content">
+        <el-collapse-item title="1. Overview" name="1">
+          <p>
+            The physicochemical properties of K-nucleotides are important
+            parameters for encoding a DNA or RNA sequence with a discrete model
+            or a vector, which play a vital role in bioinformatics. Here, we
+            developed a database named KNIndex to collect and integrate 182
+            physicochemical properties of mononucleotide, dinucleotide and
+            trinucleotide from existing database and published literatures.
+            KNIndex provides 182 properties including 1 of mononucleotide, 169
+            of dinucleotide (both for DNA and RNA) and 12 of trinucleotide.
+          </p>
+        </el-collapse-item>
+        <!-- <el-collapse-item title="2. 'Home' page help" name="2">
         <div>
           home page 内容待修改
         </div>
         <img alt="home help" src="../assets/help/homehelp.png" />
       </el-collapse-item> -->
-      <el-collapse-item title="2. Browse help" name="2">
-        <p>
-          <strong>(1).</strong> Users can browse information of physicochemical
-          properties and their original references. The side navigation shows
-          all the contents users can browse in the 'Browse' page.
-        </p>
-        <img alt="browse help" src="../assets/help/browsehelp.png" />
-      </el-collapse-item>
-      <el-collapse-item
-        title="3. Descriptions about 'Search' page and Fuzzy search"
-        name="3"
-      >
-        <p>
-          <strong>(1).</strong> The picture below is an introduction to the
-          'Search' page. A dropdown menu will be displayed if the content of the
-          search box matches the first few letters of the names of
-          physicochemical properties.
-        </p>
-        <img alt="search help" src="../assets/help/searchhelp1.png" />
-        <p>
-          <strong>(2).</strong> When you don't choose the nucleotides and input
-          physicochemical property name, you could click on search button to get
-          all tables. And in the search results, users can find a link to
-          original reference of each physicochemical property.
-        </p>
-        <img alt="search help" src="../assets/help/searchhelp2.png" />
-        <p>
-          <strong>(3).</strong> When you choose a certain nucleotide, you could
-          click on search button to get a table and export it to Excel. If you
-          want to query for a property, but have forgotten how to spell it, you
-          can use '*' or '%' for a fuzzy search.
-        </p>
-        <img alt="search help" src="../assets/help/searchhelp3.png" />
-      </el-collapse-item>
-      <el-collapse-item title="4. Convert and Visualization" name="4">
-        <p>
-          In the 'Visualization' page, users can convert a nucleotide sequence
-          into numerical sequences according to selected physicochemical
-          properties, with basic kmers of the sequence as intermediate result.
-        </p>
-        <p>
-          <strong>(1).</strong> After the user select the first three
-          parameters, the corresponding physicochemical properties will be
-          displayed for the user to choose. What's more, users can set the
-          maximum number of selectable physicochemical properties because of the
-          limited computing resources and speed.
-        </p>
-        <img alt="convert help" src="../assets/help/converthelp1.png" />
+        <el-collapse-item title="2. Browse help" name="2">
+          <p>
+            <strong>(1).</strong> Users can browse information of
+            physicochemical properties and their original references. The side
+            navigation shows all the contents users can browse in the 'Browse'
+            page.
+          </p>
+          <img alt="browse help" src="../assets/help/browsehelp.png" />
+        </el-collapse-item>
+        <el-collapse-item
+          title="3. Descriptions about 'Search' page and Fuzzy search"
+          name="3"
+        >
+          <p>
+            <strong>(1).</strong> The picture below is an introduction to the
+            'Search' page. A dropdown menu will be displayed if the content of
+            the search box matches the first few letters of the names of
+            physicochemical properties.
+          </p>
+          <img alt="search help" src="../assets/help/searchhelp1.png" />
+          <p>
+            <strong>(2).</strong> When you don't choose the nucleotides and
+            input physicochemical property name, you could click on search
+            button to get all tables. And in the search results, users can find
+            a link to original reference of each physicochemical property.
+          </p>
+          <img alt="search help" src="../assets/help/searchhelp2.png" />
+          <p>
+            <strong>(3).</strong> When you choose a certain nucleotide, you
+            could click on search button to get a table and export it to Excel.
+            If you want to query for a property, but have forgotten how to spell
+            it, you can use '*' or '%' for a fuzzy search.
+          </p>
+          <img alt="search help" src="../assets/help/searchhelp3.png" />
+        </el-collapse-item>
+        <el-collapse-item title="4. Convert and Visualization" name="4">
+          <p>
+            In the 'Visualization' page, users can convert a nucleotide sequence
+            into numerical sequences according to selected physicochemical
+            properties, with basic kmers of the sequence as intermediate result.
+          </p>
+          <p>
+            <strong>(1).</strong> After the user select the first three
+            parameters, the corresponding physicochemical properties will be
+            displayed for the user to choose. What's more, users can set the
+            maximum number of selectable physicochemical properties because of
+            the limited computing resources and speed.
+          </p>
+          <img alt="convert help" src="../assets/help/converthelp1.png" />
 
+          <p>
+            <strong>(2).</strong> After the steps in (1), users could enter a
+            DNA or RNA sequence or click on 'Example' button to get an example.
+            When the user click on 'Getvalue', he can get kmers and numerical
+            sequences. Click on 'Visualize' button to visualize the results on a
+            new page.
+          </p>
+          <img alt="convert help" src="../assets/help/converthelp2.png" />
+          <p>
+            <strong>(3).</strong> This graph is a visualization of (1) (2).
+            Users can download the graph locally.
+          </p>
+          <img alt="convert help" src="../assets/help/converthelp3.png" />
+        </el-collapse-item>
+        <el-collapse-item title="5. Download help" name="5">
+          <p>
+            <strong>(1).</strong> Users can download the files respectively and
+            all.zip including all the above files. As we show in the picture
+            below.
+          </p>
+          <img alt="download help" src="../assets/help/downloadhelp.png" />
+        </el-collapse-item>
+      </el-collapse>
+    </div>
+    <div class="perspective">
+      <h3>Statistics</h3>
+      <!-- style="width: 600px; height:400px; margin:10px auto;" -->
+      <div class="setborder">
+        <a v-for="image in statistics" :key="image.href" :href="image.href"
+          ><img
+            alt="Quantitative statistics of physicochemical properties"
+            :src="require('../assets/statistics/' + image.filesrc)"
+            style="width: auto; height:400px;"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="perspective">
+      <h3>Contact</h3>
+      <div class="setborder">
         <p>
-          <strong>(2).</strong> After the steps in (1), users could enter a DNA
-          or RNA sequence or click on 'Example' button to get an example. When
-          the user click on 'Getvalue', he can get kmers and numerical
-          sequences. Click on 'Visualize' button to visualize the results on a
-          new page.
+          For any suggestions, technical issues, data depositions and error
+          reports, please contact Dr. Pu-Feng Du by email (<a
+            href="mailto:pdu@tju.edu.cn"
+            >pdu@tju.edu.cn</a
+          >).
         </p>
-        <img alt="convert help" src="../assets/help/converthelp2.png" />
-        <p>
-          <strong>(3).</strong> This graph is a visualization of (1) (2). Users
-          can download the graph locally.
-        </p>
-        <img alt="convert help" src="../assets/help/converthelp3.png" />
-      </el-collapse-item>
-      <el-collapse-item title="5. Download help" name="5">
-        <p>
-          <strong>(1).</strong> Users can download the files respectively and
-          all.zip including all the above files. As we show in the picture
-          below.
-        </p>
-        <img alt="download help" src="../assets/help/downloadhelp.png" />
-      </el-collapse-item>
-    </el-collapse>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -105,8 +134,26 @@
 export default {
   data() {
     return {
-      messg: "this is help page, 到底写些啥呢",
-      activeName: "1"
+      // href与Browse页面第二部分的链接名相对应
+      statistics: [
+        {
+          filesrc: "statistics_01.jpg",
+          href: "/browse#mononucleotide"
+        },
+        {
+          filesrc: "statistics_02.jpg",
+          href: "/browse#dinucleotidedna"
+        },
+        {
+          filesrc: "statistics_03.jpg",
+          href: "/browse#dinucleotiderna"
+        },
+        {
+          filesrc: "statistics_04.jpg",
+          href: "/browse#trinucleotide"
+        }
+      ],
+      activeName: []
     };
   }
 };
@@ -138,14 +185,15 @@ export default {
 }
 
 .content {
-  width: 90%;
+  // width: 90%;
   margin: 10px auto;
   padding: 20px;
-  border: 3px solid #b4ede7;
+  border: 2px solid #b4ede7;
   border-radius: 10px;
   // background-color: #b4ede7;
 }
-img {
+
+.content img {
   width: 90%;
   height: auto;
 }
@@ -164,5 +212,23 @@ p {
   line-height: 1.5em;
   text-align: justify;
   padding: 0 30px;
+}
+
+.perspective {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.setborder {
+  border: 2px solid #b4ede7;
+  border-radius: 10px;
+}
+
+h3 {
+  text-align: left;
+  padding: 10px;
+  background-color: rgb(115, 200, 200);
+  color: #e6f0ef;
+  border-radius: 10px;
 }
 </style>

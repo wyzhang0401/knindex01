@@ -59,6 +59,11 @@ export default {
         },
         {
           id: 5,
+          url: "/batch_convert",
+          name: "Batch Convert"
+        },
+        {
+          id: 6,
           url: "/download",
           name: "Download"
         },
@@ -68,7 +73,7 @@ export default {
         //   name: "Manual"
         // },
         {
-          id: 6,
+          id: 7,
           url: "/help",
           name: "Help"
         }
@@ -149,7 +154,7 @@ ul.topnav li {
 }
 
 ul.topnav li.title {
-  padding: 0 70px;
+  padding: 0 30px;
   line-height: 70px;
   height: 70px;
 }
@@ -163,7 +168,7 @@ ul.topnav li.title {
 
 ul.topnav li a {
   display: block;
-  padding: 20px;
+  padding: 20px 15px;
   color: rgb(115, 200, 200);
   font-weight: bold;
   font-family: "Source Sans Pro", sans-serif !important;
@@ -208,7 +213,7 @@ ul.topnav .is-active a {
   }
 
   /* 下拉图标大小不变 */
-  ul.topnav.responsive li:not(:nth-child(8)) a {
+  ul.topnav.responsive li:not(:nth-child(9)) a {
     text-align: left;
     height: 0 !important;
     line-height: 0 !important;

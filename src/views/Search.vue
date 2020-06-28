@@ -51,6 +51,7 @@
     </div>
 
     <div class="content">
+      <!-- id == 0表示没有进行查询，没有数据显示 -->
       <el-row
         v-if="id == 0"
         type="flex"
@@ -82,24 +83,30 @@
       <el-collapse v-model="activeNames">
         <el-collapse-item
           v-if="id === 1 || (id === 10 && monodnaoriginal != '')"
-          title="mononucleotide-DNA-original"
           name="1"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                mononucleotide-DNA-original
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('1')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 monodna-original -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">
                 mononucleotide-DNA-original
               </el-col>
-              <el-col :span="1" v-if="id === 1"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
 
@@ -155,24 +162,30 @@
 
         <el-collapse-item
           v-if="id === 2 || (id === 10 && monodnastandard != '')"
-          title="mononucleotide-DNA-standard"
           name="2"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                mononucleotide-DNA-standard
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('2')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 monodna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="6" :offset="8">
                 mononucleotide-DNA-standard
               </el-col>
-              <el-col :span="1" v-if="id === 2"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
 
@@ -227,24 +240,30 @@
 
         <el-collapse-item
           v-if="id === 3 || (id === 10 && didnaoriginal != '')"
-          title="dinucleotide-DNA-original"
           name="3"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                dinucleotide-DNA-original
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('3')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 didna-original -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">
                 dinucleotide-DNA-original
               </el-col>
-              <el-col :span="1" v-if="id === 3"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
 
@@ -304,24 +323,30 @@
 
         <el-collapse-item
           v-if="id === 4 || (id === 10 && didnastandard != '')"
-          title="dinucleotide-DNA-standard"
           name="4"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                dinucleotide-DNA-standard
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('4')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 didna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">
                 dinucleotide-DNA-standard
               </el-col>
-              <el-col :span="1" v-if="id === 4"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
 
@@ -381,22 +406,28 @@
 
         <el-collapse-item
           v-if="id === 5 || (id === 10 && dirnaoriginal != '')"
-          title="dinucleotide-RNA-original"
           name="5"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                dinucleotide-RNA-original
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('5')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 dirna-original -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">dinucleotide-RNA-original</el-col>
-              <el-col :span="1" v-if="id === 5"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
 
@@ -455,24 +486,30 @@
 
         <el-collapse-item
           v-if="id === 6 || (id === 10 && dirnastandard != '')"
-          title="dinucleotide-RNA-standard"
           name="6"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                dinucleotide-RNA-standard
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('6')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 dirna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">
                 dinucleotide-RNA-standard
               </el-col>
-              <el-col :span="1" v-if="id === 6"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
 
@@ -531,24 +568,30 @@
 
         <el-collapse-item
           v-if="id === 7 || (id === 10 && tridnaoriginal != '')"
-          title="trinucleotide-DNA-original"
           name="7"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                trinucleotide-DNA-original
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('7')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 tridna-original -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">
                 trinucleotide-DNA-original
               </el-col>
-              <el-col :span="1" v-if="id === 7"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
 
@@ -607,24 +650,30 @@
 
         <el-collapse-item
           v-if="id === 8 || (id === 10 && tridnastandard != '')"
-          title="trinucleotide-DNA-standard"
           name="8"
         >
+          <template slot="title">
+            <el-row type="flex" justify="space-between" style="width:100%;">
+              <el-col :span="12" style="padding-left: 20px; text-align: left;">
+                trinucleotide-DNA-standard
+              </el-col>
+              <el-col :span="12">
+                <el-button
+                  icon="el-icon-download"
+                  size="mini"
+                  type="danger"
+                  @click="export2excel('8')"
+                  >Export</el-button
+                >
+              </el-col>
+            </el-row>
+          </template>
           <!-- 对应表 tridna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="6" :offset="8">
                 trinucleotide-DNA-standard
               </el-col>
-              <el-col :span="1" v-if="id === 8"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
             </el-row>
           </div>
           <!-- height 固定表头 -->
@@ -690,7 +739,20 @@ import axios from "axios";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
 
+// const Json2csvParser = require("json2csv").Parser;
+// function exportCSV(data, filename) {
+//   const parser = new Json2csvParser();
+//   const csvData = parser.parse(data);
+//   const blob = new Blob(["\uFEFF" + csvData], {
+//     type: "text/csv; charset=utf-8;"
+//   });
+//   FileSaver.saveAs(blob, filename);
+// }
 export default {
+  // install(Vue) {
+  //   Vue.prototype.exportCSV = exportCSV;
+  // },
+
   data() {
     return {
       // messg: ["","","","","","","",""], // 出现错误，不能及时渲染到页面
@@ -889,10 +951,36 @@ export default {
       }
       // console.log(rowIndex);
     },
+    // 导出到csv，IE浏览器报错
+    // export2excel(id) {
+    //   let _this = this;
+    //   let fileName = ".csv";
+    //   let file = [
+    //     "mononucleotide-DNA-original",
+    //     "mononucleotide-DNA-standard",
+    //     "dinucleotide-DNA-original",
+    //     "dinucleotide-DNA-standard",
+    //     "dinucleotide-RNA-original",
+    //     "dinucleotide-RNA-standard",
+    //     "trinucleotide-DNA-original",
+    //     "trinucleotide-DNA-standard"
+    //   ];
+    //   let data = [
+    //     _this.monodnaoriginal,
+    //     _this.monodnastandard,
+    //     _this.didnaoriginal,
+    //     _this.didnastandard,
+    //     _this.dirnaoriginal,
+    //     _this.dirnastandard,
+    //     _this.tridnaoriginal,
+    //     _this.tridnastandard
+    //   ];
+    //   fileName = file[id - 1] + fileName;
+    //   exportCSV(data[id - 1], fileName);
+    // },
 
-    // 导出表格
-    export2excel() {
-      let id = this.id;
+    // 导出到xlsx表格
+    export2excel(id) {
       let myTable = "#myTable";
       let fileName = ".xlsx";
       let file = [
@@ -985,6 +1073,7 @@ export default {
             _this.monodnaoriginal = respond.data;
             // console.log(respond.data[0].PropertyName)
             _this.id = 1;
+            // console.log(_this.monodnaoriginal);
           });
         }
         //  且 搜索框不空
