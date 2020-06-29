@@ -5,7 +5,8 @@ var mysql = require("mysql");
 var $sql = require("../sqlMap");
 var multer = require("multer"); //传输文件
 var fs = require("fs");
-
+var convert = require("../convert");
+var path = require("path");
 // 连接数据库
 var connection = mysql.createConnection(models.mysql);
 connection.connect();
@@ -326,22 +327,50 @@ router.post("/references", (req, res) => {
   });
 });
 
+// 接收前端文件
 const upload = multer({
   dest: "./upload"
 });
 
 router.post("/upload", upload.single("file"), (req, res) => {
   // 判断文件是否存在
+  // console.log(typeof(req.body.id));
+  let body = JSON.stringify(req.body);
+  let para = JSON.parse(body);
+  // console.log(JSON.parse(para.tmpProperty));
   if (req.file.length === 0) {
     res.render("error", { message: "the file cannot be empty!" });
     return;
   } else {
-    res.json({
-      file: req.file
-    });
     var file = req.file;
-    fs.renameSync("./upload/" + file.filename, "./upload/sequence.fas");
+    //  对文件更名，这里一次上传一个文件
+    var fname = "./upload/" + req.body.id + ".fas";
+    fs.renameSync("./upload/" + file.filename, fname);
+    let flink = convert.convert(para);
+    res.json({
+      file: req.file,
+      fileLink: flink // 文件名
+    });
   }
+});
+
+// eslint-disable-next-line no-unused-vars
+router.get("/download/*", function(req, res, next) {
+  let name = req.params["0"]; // 是文件名
+  // let name = "1197892332.csv";
+  // console.log(__dirname);
+  let tmp = "../results/" + name;
+  let pathname = path.join(__dirname, tmp);
+  // http://localhost:3000/api/property/download/1197892332.csv
+
+  let size = fs.statSync(pathname).size;
+  let f = fs.createReadStream(pathname);
+  res.writeHead(200, {
+    "Content-Type": "application/force-download",
+    "Content-Disposition": "attachment; filename=" + name,
+    "Content-Length": size
+  });
+  f.pipe(res);
 });
 
 module.exports = router;

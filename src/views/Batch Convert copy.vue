@@ -146,7 +146,13 @@
               type="button"
               value="Submit file"
               class="submit"
-              @click="submit('form')"
+              @click="submit"
+            />
+            <input
+              type="button"
+              value="Batch convert"
+              class="convert"
+              @click="batchConvert('form')"
             />
           </div>
         </el-form-item>
@@ -308,52 +314,18 @@ export default {
     },
 
     // 提交fasta文件
-    async submit(formName) {
+    async submit() {
       var _this = this;
       if (this.file == "") {
         alert("Please select a fasta file!");
         return false;
       }
-      this.$refs[formName].validate(valid => {
-        if (!valid) {
-          alert("Please choose parameters first!");
-          return false;
-        }
-      });
-      let property = _this.form.properties.property;
-      // console.log(property);
-      let propertyid = _this.form.propertyid;
-
-      if (propertyid.length == 0) {
-        alert("Please choose at least one physicochemical property!");
-        return false;
-      }
-      // console.log(property);
-      // 截取propertyid对应的对象
-      let i = 0;
-      let j = 0;
-      let tmpProperty = []; // [{},{},{},...]
-      for (i = 0; i < propertyid.length; i++) {
-        let t = propertyid[i];
-        for (j = 0; j < property.length; j++) {
-          if (property[j].ID == t) {
-            break;
-          }
-        }
-        tmpProperty.push(property[j]);
-      }
-
       const formData = new FormData();
       formData.append("file", this.file); // 这里的“file”要和后端upload.single("file")的“file”同一个名称
       //   console.log(formData);
       // 随机生成一个id
       let id = Math.floor(Math.random() * Math.pow(2, 32) + 1);
       formData.append("id", id);
-      formData.append("kmer", _this.form.kmer);
-      formData.append("value", _this.form.value);
-      let tmp = JSON.stringify(tmpProperty);
-      formData.append("tmpProperty", tmp);
-
       await axios
         .post("/api/property/upload", formData, {
           onUploadProgress: progressEvent => {
@@ -365,15 +337,70 @@ export default {
         })
         // eslint-disable-next-line no-unused-vars
         .then(function(respond) {
-          // console.log(respond);
-          if (respond.status == 200) {
+          if (respond.statusText == "OK") {
             _this.$message({
-              message: "Bash convert successfully",
+              message: "File submit successfully",
               type: "success"
             });
-            console.log(respond.data.fileLink);
+            _this.uploadStatus = true;
           }
         });
+      // this.file = "";
+      // this.percentCompleted = 0;
+    },
+
+    // 批量转换，点击该按钮，将前三个参数以及选择的理化特性传到node后端
+    batchConvert(formName) {
+      // console.log(formName.properties.property);
+      let _this = this;
+      this.percentCompleted = 0;
+      this.$refs[formName].validate(valid => {
+        // 验证前三个参数的有效性，如果有效表示都选择了
+        if (valid) {
+          console.log(valid);
+          let property = _this.form.properties.property;
+          // console.log(property);
+          let propertyid = _this.form.propertyid;
+
+          if (propertyid.length == 0) {
+            alert("Please choose at least one physicochemical property!");
+            return false;
+          }
+          if (_this.uploadStatus === false) {
+            alert("Please select a fasta file and upload!");
+            return false;
+          }
+          // console.log(property);
+          // 截取propertyid对应的对象
+          let i = 0;
+          let j = 0;
+          let tmpProperty = []; // [{},{},{},...]
+          for (i = 0; i < propertyid.length; i++) {
+            let t = propertyid[i];
+            for (j = 0; j < property.length; j++) {
+              if (property[j].ID == t) {
+                break;
+              }
+            }
+            tmpProperty.push(property[j]);
+          }
+
+          // 将转换所需要的数据传到node后端，可能后期会加个邮件地址
+          axios
+            .post("api/property/parameters", {
+              kmer: _this.form.kmer,
+              value: _this.form.value,
+              tmpProperty: tmpProperty
+            })
+            .then(function(respond) {
+              // 这里在后端返回转换结果的下载链接
+              console.log(respond);
+            });
+        } else {
+          alert("Please choose parameters first!");
+          return false;
+        }
+      });
     }
   }
 };
