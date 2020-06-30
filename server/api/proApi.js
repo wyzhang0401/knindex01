@@ -7,6 +7,7 @@ var multer = require("multer"); //传输文件
 var fs = require("fs");
 var convert = require("../convert");
 var path = require("path");
+
 // 连接数据库
 var connection = mysql.createConnection(models.mysql);
 connection.connect();
@@ -356,21 +357,37 @@ router.post("/upload", upload.single("file"), (req, res) => {
 
 // eslint-disable-next-line no-unused-vars
 router.get("/download/*", function(req, res, next) {
-  let name = req.params["0"]; // 是文件名
-  // let name = "1197892332.csv";
-  // console.log(__dirname);
+  // let name = req.params["0"]; // 是文件名 如 1197892332.csv
+  // console.log(req.url); // /download/1197892332.csv
+  let fileUrl = req.url;
+  let name = fileUrl.substring(fileUrl.lastIndexOf("/") + 1); // 在url中截取文件名
+  // console.log(req.originalUrl); // /api/property/download/1197892332.csv
   let tmp = "../results/" + name;
   let pathname = path.join(__dirname, tmp);
+  // http://localhost:3000/api/property/download/1775894543.csv
   // http://localhost:3000/api/property/download/1197892332.csv
-
-  let size = fs.statSync(pathname).size;
-  let f = fs.createReadStream(pathname);
-  res.writeHead(200, {
-    "Content-Type": "application/force-download",
-    "Content-Disposition": "attachment; filename=" + name,
-    "Content-Length": size
-  });
-  f.pipe(res);
+  let checkFile = fs.existsSync(pathname);
+  // console.log(checkFile);
+  if (checkFile) {
+    let size = fs.statSync(pathname).size;
+    let f = fs.createReadStream(pathname);
+    res.writeHead(200, {
+      "Content-Type": "application/force-download",
+      "Content-Disposition": "attachment; filename=" + name,
+      "Content-Length": size
+    });
+    f.pipe(res);
+  } else {
+    res.set("Content-type", "text/html");
+    res.send(
+      "http://knindex.pufengdu.org" +
+        req.originalUrl +
+        " does not exist!" +
+        "\n" +
+        " Please wait for the conversion process to complete! And make sure your download link is correct. "
+    );
+    res.end();
+  }
 });
 
 module.exports = router;

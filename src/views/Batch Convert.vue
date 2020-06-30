@@ -129,7 +129,7 @@
 
         <el-form-item
           label="Batch convert DNA/RNA sequences of a fasta file"
-          style="margin-top: 10px; border-top: 1px solid rgb(115, 200, 200); border-bottom: 1px solid #ebeef5;"
+          style="margin-top: 10px; border-top: 1px solid rgb(115, 200, 200); border-bottom:1px solid #ebeef5;"
         >
           <!-- <a href="javascript:;"></a> -->
           <div style="display: flex;height: 80px;">
@@ -144,19 +144,61 @@
             </div>
             <input
               type="button"
-              value="Submit file"
+              value="Batch convert"
               class="submit"
               @click="submit('form')"
             />
           </div>
+          <div class="progress-wrap">
+            <p>
+              You select the file: <i>{{ file.name }} </i>
+              <!-- Submit <i>{{ file.name }} </i>progress -->
+            </p>
+            <!-- <p class="progress"><span :style="style"></span></p> -->
+          </div>
         </el-form-item>
       </el-form>
-      <div class="progress-wrap">
-        <p>
-          Submit <i>{{ file.name }} </i>progress
-        </p>
-        <p class="progress"><span :style="style"></span></p>
+      <div style="width: 80%;display:inline-block;">
+        <i class="el-icon-question" @click="linkConfirm" style="margin: 10px;"
+          >Download link of results</i
+        >
+        <el-input placeholder="download link" v-model="fileLink"></el-input>
       </div>
+      <!-- <el-form
+        ref="emailForm"
+        :rules="emailrule"
+        :model="emailForm"
+        label-width="200px"
+        label-position="left"
+        label-suffix=":"
+      >
+        <el-form-item
+          prop="email"
+          label="Please leave your email"
+          :rules="[
+            {
+              required: true,
+              message: 'Please enter your email address ',
+              trigger: 'blur'
+            },
+            {
+              type: 'email',
+              message: 'Please enter the correct email address',
+              trigger: ['blur', 'change']
+            }
+          ]"
+          style="border-bottom: 1px solid #ebeef5; height: 80px;"
+        >
+          <i class="el-icon-question" @click="tips"></i>
+          <el-input v-model="form.email"></el-input>
+        </el-form-item>
+      </el-form>
+      <input
+        type="button"
+        value="Confirm email"
+        class="myemail"
+        @click="submitEmail"
+      /> -->
     </div>
   </div>
 </template>
@@ -180,7 +222,27 @@ export default {
         },
         propertyid: [], // 选中的理化特性的id,复选框,可以设置最多选几个
         max: 5
+        // email: ""
       },
+      // emailForm: {
+      //   email: ""
+      // },
+
+      // emailrule: {
+      //   email: [
+      //     {
+      //       required: true,
+      //       message: "Please enter your email address ",
+      //       trigger: "blur"
+      //     },
+      //     {
+      //       type: "email",
+      //       message: "Please enter the correct email address",
+      //       trigger: ["blur", "change"]
+      //     }
+      //   ]
+      // },
+
       // 验证规则
       rules: {
         kmer: [
@@ -205,7 +267,8 @@ export default {
       status: false, // 设置理化特性的表格不显示表头
       file: "", // 加载的文件
       percentCompleted: 0, // 文件上传进度
-      uploadStatus: false // 文件上传是否成功
+      uploadStatus: false, // 文件上传是否成功
+      fileLink: "" // 随机生成的id作为文件名
     };
   },
 
@@ -276,7 +339,7 @@ export default {
     // 选择最大数量理化特性的问号提示
     question() {
       this.$alert(
-        "You can set the maximum number of selectable physicochemical properties because of the limited computing resources and speed.",
+        "You can set the maximum number of selectable physicochemical properties due to the limited computational resources.",
         "tips",
         {
           confirmButtonText: "confirm"
@@ -284,6 +347,15 @@ export default {
       );
     },
 
+    // tips() {
+    //   this.$alert(
+    //     "When the conversion process is complete, we will email you the download link for the results.",
+    //     "tips",
+    //     {
+    //       confirmButtonText: "confirm"
+    //     }
+    //   );
+    // },
     // 选择fasta文件
     fileSelect() {
       let file = this.$refs.file.files[0];
@@ -310,18 +382,18 @@ export default {
     // 提交fasta文件
     async submit(formName) {
       var _this = this;
-      if (this.file == "") {
-        alert("Please select a fasta file!");
-        return false;
-      }
+      // 验证前三个参数的有效性
       this.$refs[formName].validate(valid => {
         if (!valid) {
           alert("Please choose parameters first!");
           return false;
         }
       });
+      if (this.file == "") {
+        alert("Please select a fasta file!");
+        return false;
+      }
       let property = _this.form.properties.property;
-      // console.log(property);
       let propertyid = _this.form.propertyid;
 
       if (propertyid.length == 0) {
@@ -348,10 +420,16 @@ export default {
       //   console.log(formData);
       // 随机生成一个id
       let id = Math.floor(Math.random() * Math.pow(2, 32) + 1);
+      // _this.fileLink =
+      //   "http://localhost:3000/api/property/download/" + id + ".csv"; //本地测试
+      _this.fileLink =
+        "http://knindex.pufengdu.org/api/property/download/" + id + ".csv";
+      console.log(_this.fileLink);
+      this.linkConfirm(_this.fileLink);
       formData.append("id", id);
       formData.append("kmer", _this.form.kmer);
       formData.append("value", _this.form.value);
-      let tmp = JSON.stringify(tmpProperty);
+      let tmp = JSON.stringify(tmpProperty); // 不然后端读不到
       formData.append("tmpProperty", tmp);
 
       await axios
@@ -365,15 +443,24 @@ export default {
         })
         // eslint-disable-next-line no-unused-vars
         .then(function(respond) {
-          // console.log(respond);
           if (respond.status == 200) {
             _this.$message({
-              message: "Bash convert successfully",
+              message: "Batch convert successfully",
               type: "success"
             });
-            console.log(respond.data.fileLink);
+            // console.log(respond.data.fileLink);
           }
         });
+    },
+    linkConfirm() {
+      this.$alert(
+        "The conversion process may take some time due to limited computational resources and the size of file. We provide you a link to download the results after a while. So please be sure to save the link.",
+        "important link",
+        {
+          confirmButtonText: "confirm",
+          type: "warning"
+        }
+      );
     }
   }
 };
@@ -492,15 +579,22 @@ var object2object = function(objectArray, length, rows) {
   border-right: 1px solid #ebeef5;
 }
 
-// .el-form-item:nth-child(6) /deep/ .el-form-item__label {
-//   height: 53px;
+// .el-form-item:nth-child(7) /deep/ .el-form-item__label {
+//   height: 80px;
 // }
-
+// .el-form-item:nth-child(7) /deep/ .el-form-item__content {
+//   margin-top: 15px;
+// }
 // /deep/ 相当于 >>>
-/deep/ .el-checkbox__inner:hover {
-  background-color: rgb(115, 200, 200) !important;
+/deep/ .el-input__inner:hover {
+  // background-color: rgb(115, 200, 200) !important;
   border-color: rgb(115, 200, 200) !important;
 }
+
+/deep/ .el-input .is-active .el-input__inner.el-input__inner:focus {
+  border-color: rgb(115, 200, 200) !important;
+}
+
 /deep/ .el-radio__inner:hover {
   background-color: rgb(115, 200, 200) !important;
   border-color: rgb(115, 200, 200) !important;
@@ -552,6 +646,16 @@ var object2object = function(objectArray, length, rows) {
   color: rgb(115, 200, 200);
 }
 
+// /deep/ .el-input {
+//   width: 60%;
+//   margin-left: 10px;
+//   font-size: 15px;
+// }
+
+// /deep/ .el-input .el-input__inner:focus {
+//   border-color: rgb(115, 200, 200);
+// }
+
 // 遮盖原始按钮，以改变原始按钮的样式
 .upload {
   height: 35px;
@@ -587,22 +691,25 @@ var object2object = function(objectArray, length, rows) {
   margin: auto 10px; // 按钮居中
 }
 
-.convert {
+.myemail {
   font-size: 15px;
   height: 35px;
-  width: 100px;
+  width: 120px;
   border-radius: 5px;
   color: #fff;
   background-color: #e6a23c;
   border: #e6a23c;
-  margin: auto 30px; // 按钮居中
+  margin: 10px 10px 10px; // 按钮居中
 }
 
 .progress-wrap {
-  width: 400px;
+  width: 100%;
   margin: 0 auto;
+  // border-left: 1px solid #ebeef5;
   p {
+    margin: 0 auto;
     width: 100%;
+    font-size: 15px;
   }
   .progress {
     background-color: #c5c8ce;

@@ -61,6 +61,14 @@
         </p>
         <p>
           The
+          <router-link to="/batch_convert"
+            ><b><i>Convert</i></b></router-link
+          >
+          page integrates a tool for converting a set of DNA/RNA sequences into
+          series of numerical physicochemical properties.
+        </p>
+        <p>
+          The
           <router-link to="/download"
             ><b><i>Download</i></b></router-link
           >
@@ -86,10 +94,13 @@
       <el-col :span="12">
         <!-- <div id="myHeatmap" style="width: 600px;height:600px;"></div> -->
         <img
-          alt="nucleotides"
+          alt="basic properties"
           src="../assets/property.jpg"
-          style="width: 600px; height:400px;"
+          style="width: 400px; height:500px; margin: 40px;"
         />
+        <span style="font-size: 12px; float:right;"
+          >(Britton et al., <i>J Chem Phys</i>. 2009)</span
+        >
         <!-- <div
           id="myChart"
           style="width: auto; height:400px; margin:60px auto;"

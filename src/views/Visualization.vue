@@ -382,7 +382,7 @@ export default {
     // 关于可选择理化特性最多数的理由提示
     question() {
       this.$alert(
-        "You can set the maximum number of selectable physicochemical properties because of the limited computing resources and speed.",
+        "You can set the maximum number of selectable physicochemical properties due to the limited computational resources.",
         "tips",
         {
           confirmButtonText: "confirm"

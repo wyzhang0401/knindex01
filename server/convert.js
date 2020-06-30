@@ -15,7 +15,7 @@ function myReadFile(para) {
   let remaining = fs.readFileSync(__dirname + fname);
   remaining.toString();
   // let remaining = "";
-  let k = 0;
+  // let k = 0;
   // readStream.on("data", data => {
   // console.log(data);
   // remaining += data;
@@ -27,8 +27,8 @@ function myReadFile(para) {
   // console.log(index);
   // 不是文件尾
   while (index > -1) {
-    k++;
-    console.log(k);
+    // k++;
+    // console.log(k);
     let item = { notation: "", seq: "" };
     // let line = remaining.substring(0, index);
     // console.log(line);

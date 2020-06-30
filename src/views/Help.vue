@@ -12,14 +12,19 @@
       <el-collapse v-model="activeName" accordion class="content">
         <el-collapse-item title="1. Overview" name="1">
           <p>
-            The physicochemical properties of K-nucleotides are important
+            The physicochemical properties of <i>k</i>-nucleotides are important
             parameters for encoding a DNA or RNA sequence with a discrete model
             or a vector, which play a vital role in bioinformatics. Here, we
-            developed a database named KNIndex to collect and integrate 182
-            physicochemical properties of mononucleotide, dinucleotide and
-            trinucleotide from existing database and published literatures.
-            KNIndex provides 182 properties including 1 of mononucleotide, 169
-            of dinucleotide (both for DNA and RNA) and 12 of trinucleotide.
+            developed a database named KNIndex (<b
+              ><a href="http://knindex.pufengdu.org"
+                >http://knindex.pufengdu.org</a
+              ></b
+            >) to collect and curate physicochemical properties of
+            mononucleotide, dinucleotide and trinucleotide from existing
+            database and published literatures. Currently, the KNIndex database
+            documents <b>182</b> properties including <b>1</b> for
+            mononucleotide (DNA), <b>169</b> for dinucleotide (<b>147</b> for
+            DNA and <b>22</b> for RNA) and <b>12</b> for trinucleotide (DNA).
           </p>
         </el-collapse-item>
         <!-- <el-collapse-item title="2. 'Home' page help" name="2">
@@ -31,9 +36,10 @@
         <el-collapse-item title="2. Browse help" name="2">
           <p>
             <strong>(1).</strong> Users can browse information of
-            physicochemical properties and their original references. The side
-            navigation shows all the contents users can browse in the 'Browse'
-            page.
+            physicochemical properties and their original references. The
+            navigation bar on the left side shows all the contents users can
+            browse in the 'Browse' page. It takes some time to load data when
+            opening the page.
           </p>
           <img alt="browse help" src="../assets/help/browsehelp.png" />
         </el-collapse-item>
@@ -49,17 +55,17 @@
           </p>
           <img alt="search help" src="../assets/help/searchhelp1.png" />
           <p>
-            <strong>(2).</strong> When you don't choose the nucleotides and
-            input physicochemical property name, you could click on search
-            button to get all tables. And in the search results, users can find
-            a link to original reference of each physicochemical property.
+            <strong>(2).</strong> When the nucleotide type is not chosen, all
+            properties with a matching name will be displayed. In the result of
+            searching, links to the original literatures are provided. Users are
+            allowed to export all results as tabular files.
           </p>
           <img alt="search help" src="../assets/help/searchhelp2.png" />
           <p>
-            <strong>(3).</strong> When you choose a certain nucleotide, you
-            could click on search button to get a table and export it to Excel.
-            If you want to query for a property, but have forgotten how to spell
-            it, you can use '*' or '%' for a fuzzy search.
+            <strong>(3).</strong> The query box supports not only searching by
+            the property name, but also wildcards queries using '*' and '%'. If
+            you don't choose the nucleotides, you will get all the tables that
+            meet the query requirements.
           </p>
           <img alt="search help" src="../assets/help/searchhelp3.png" />
         </el-collapse-item>
@@ -67,23 +73,24 @@
           <p>
             In the 'Visualization' page, users can convert a nucleotide sequence
             into numerical sequences according to selected physicochemical
-            properties, with basic kmers of the sequence as intermediate result.
+            properties, with basic kmers of the sequence as intermediate
+            results.
           </p>
           <p>
-            <strong>(1).</strong> After the user select the first three
+            <strong>(1).</strong> When the user have selected the first three
             parameters, the corresponding physicochemical properties will be
-            displayed for the user to choose. What's more, users can set the
-            maximum number of selectable physicochemical properties because of
-            the limited computing resources and speed.
+            displayed for the user to choose. Due to the limited computational
+            resources, users should set the maximum number of selectable
+            physicochemical properties, which is 5 by default.
           </p>
           <img alt="convert help" src="../assets/help/converthelp1.png" />
 
           <p>
-            <strong>(2).</strong> After the steps in (1), users could enter a
-            DNA or RNA sequence or click on 'Example' button to get an example.
-            When the user click on 'Getvalue', he can get kmers and numerical
-            sequences. Click on 'Visualize' button to visualize the results on a
-            new page.
+            <strong>(2).</strong> After step (1), users can enter a DNA or RNA
+            sequence or click on the 'Example' button to get an example
+            sequence. When the user clicked the 'Get value' button, the kmers
+            and the numerical series will be displayed. Clicking the ‘Visualize’
+            button will display the curves on a new page.
           </p>
           <img alt="convert help" src="../assets/help/converthelp2.png" />
           <p>
@@ -92,7 +99,29 @@
           </p>
           <img alt="convert help" src="../assets/help/converthelp3.png" />
         </el-collapse-item>
-        <el-collapse-item title="5. Download help" name="5">
+        <el-collapse-item title="5. Batch convert" name="5">
+          <p>
+            <strong>(1).</strong> The parameter selection process is the same as
+            'Visualization' page. Then select a fasta file for converting a set
+            of DNA/RNA sequences into series of numerical physicochemical
+            properties.
+          </p>
+          <img alt="batch convert help" src="../assets/help/batchhelp1.png" />
+          <p>
+            <strong>(2).</strong> After step (1), click the 'Batch convert'
+            button to get a download link of the results. The conversion process
+            may take some time due to limited computational resources and the
+            size of file. We provide you a link to download the results after a
+            while. So please be sure to save the link. The results are provided
+            as CSV (Comma Separated Vector) files. Each row in the file
+            represents the numerical values of a sequence in one type of
+            physicochemical property. The id of the sequence, name and type of
+            the physicochemical properties are marked at the end of the line,
+            with a ‘#’ to separate them from the values.
+          </p>
+          <img alt="bacth convert help" src="../assets/help/batchhelp2.png" />
+        </el-collapse-item>
+        <el-collapse-item title="6. Download help" name="6">
           <p>
             <strong>(1).</strong> Users can download the files respectively and
             all.zip including all the above files. As we show in the picture
@@ -106,6 +135,12 @@
       <h3>Statistics</h3>
       <!-- style="width: 600px; height:400px; margin:10px auto;" -->
       <div class="setborder">
+        <p>
+          Currently, the KNIndex database documents <b>182</b> properties
+          including <b>1</b> for mononucleotide (DNA), <b>169</b> for
+          dinucleotide (<b>147</b> for DNA and <b>22</b> for RNA) and
+          <b>12</b> for trinucleotide (DNA).
+        </p>
         <a v-for="image in statistics" :key="image.href" :href="image.href"
           ><img
             alt="Quantitative statistics of physicochemical properties"
@@ -153,7 +188,7 @@ export default {
           href: "/browse#trinucleotide"
         }
       ],
-      activeName: []
+      activeName: ["1"]
     };
   }
 };

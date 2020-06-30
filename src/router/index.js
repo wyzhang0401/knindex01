@@ -38,7 +38,7 @@ const routes = [
   },
   {
     path: "/batch_convert",
-    name: "Batch Convert",
+    name: "Convert",
     component: Batchconvert
   },
   {

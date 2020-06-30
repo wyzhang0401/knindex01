@@ -60,7 +60,7 @@ export default {
         {
           id: 5,
           url: "/batch_convert",
-          name: "Batch Convert"
+          name: "Convert"
         },
         {
           id: 6,
